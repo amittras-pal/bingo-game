@@ -1,0 +1,31 @@
+.new-game-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem;
+  background: #1f4037;
+  background: -webkit-linear-gradient(180deg, #99f2c8, #1f4037);
+  background: linear-gradient(180deg, #99f2c8, #1f4037);
+  .create-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    color: #1f4037;
+    padding: 10px 0px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 12px -3px rgba($color: #000000, $alpha: 0.3);
+    .title {
+      margin: 15px 1.5rem;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      margin: 10px 0px;
+      background: #1f4037;
+      background: -webkit-linear-gradient(180deg, #99f2c8, #1f4037);
+      background: linear-gradient(180deg, #99f2c8, #1f4037);
+    }
+  }
+}
