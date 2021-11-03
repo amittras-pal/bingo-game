@@ -1,12 +1,33 @@
 import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
 import "./Create.scss";
 
 function Create() {
+  const createNewGame = (values) => {
+    console.log(values);
+    toast.success("Toast Test: " + values.gameTitle);
+  };
+  const newGameForm = useFormik({
+    initialValues: {
+      gameTitle: "",
+      conductorName: "",
+    },
+    validationSchema: Yup.object({
+      gameTitle: Yup.string().required("You must provide a game title!"),
+      conductorName: Yup.string().required(
+        "Enter your name as the game conductor."
+      ),
+    }),
+    onSubmit: createNewGame,
+  });
+
   return (
     <div className="container-fluid px-3">
       <div className="container d-flex flex-column justify-content-center align-items-center glass-dark my-5 p-3">
         <h2 className="text-light">Create a New Game</h2>
-        <form className="w-100">
+        <form className="w-100" onSubmit={newGameForm.handleSubmit}>
           <div className="row">
             <div className="col-md-6 col-sm-12 my-3">
               <label htmlFor="" className="form-label text-light">
@@ -15,7 +36,16 @@ function Create() {
                   (Required)
                 </span>
               </label>
-              <input type="text" className="form-control form-control-sm" />
+              <input
+                type="text"
+                autoFocus
+                className="form-control form-control-sm"
+                name="gameTitle"
+                autoComplete="off"
+                placeholder="Enter a game title. . ."
+                onChange={newGameForm.handleChange}
+                onBlur={newGameForm.handleBlur}
+              />
             </div>
             <div className="col-md-6 col-sm-12 my-3">
               <label htmlFor="" className="form-label text-light">
@@ -24,11 +54,22 @@ function Create() {
                   (Required)
                 </span>
               </label>
-              <input type="text" className="form-control form-control-sm" />
+              <input
+                type="text"
+                className="form-control form-control-sm"
+                name="conductorName"
+                autoComplete="off"
+                placeholder="Enter game conductor name. . ."
+                onChange={newGameForm.handleChange}
+                onBlur={newGameForm.handleBlur}
+              />
             </div>
           </div>
           <div className="d-flex justify-content-end my-2">
-            <button className="btn btn-sm btn-warning fw-bold shadow" disabled>
+            <button
+              type="submit"
+              className="btn btn-sm btn-warning fw-bold shadow"
+              disabled={!newGameForm.isValid}>
               CREATE GAME
             </button>
           </div>
