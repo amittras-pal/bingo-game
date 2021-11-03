@@ -44,75 +44,82 @@ function PlayerBoard() {
     setBoard((board) => ({ ...board, [letter]: column }));
   };
   return (
-    <div className="player-board">
-      <div className="board-layout">
-        <div className="board-header">
-          <NumberTile value="B" isHeader />
-          <NumberTile value="I" isHeader />
-          <NumberTile value="N" isHeader />
-          <NumberTile value="G" isHeader />
-          <NumberTile value="O" isHeader />
-        </div>
-        <div className="divider"></div>
-        {board && (
-          <div className="board-tiles">
-            <div className="column">
-              {board.B.map((num) => (
-                <NumberTile
-                  value={num.value}
-                  letter="B"
-                  key={num.value}
-                  isSelected={num.selected}
-                  onSelect={selectNumber}
-                />
-              ))}
-            </div>
-            <div className="column">
-              {board.I.map((num) => (
-                <NumberTile
-                  value={num.value}
-                  letter="I"
-                  key={num.value}
-                  isSelected={num.selected}
-                  onSelect={selectNumber}
-                />
-              ))}
-            </div>
-            <div className="column">
-              {board.N.map((num) => (
-                <NumberTile
-                  value={num.value}
-                  letter="N"
-                  key={num.value}
-                  isSelected={num.selected}
-                  onSelect={selectNumber}
-                />
-              ))}
-            </div>
-            <div className="column">
-              {board.G.map((num) => (
-                <NumberTile
-                  value={num.value}
-                  letter="G"
-                  key={num.value}
-                  isSelected={num.selected}
-                  onSelect={selectNumber}
-                />
-              ))}
-            </div>
-            <div className="column">
-              {board.O.map((num) => (
-                <NumberTile
-                  value={num.value}
-                  letter="O"
-                  key={num.value}
-                  isSelected={num.selected}
-                  onSelect={selectNumber}
-                />
-              ))}
-            </div>
+    <div className="container-fluid px-3">
+      <div className="player-board container shadow d-flex justify-content-center align-items-center p-2 mt-2 glass-dark">
+        <div className="board-layout">
+          <div className="board-header">
+            <NumberTile value="B" isHeader />
+            <NumberTile value="I" isHeader />
+            <NumberTile value="N" isHeader />
+            <NumberTile value="G" isHeader />
+            <NumberTile value="O" isHeader />
           </div>
-        )}
+          <div className="divider w-100 my-3 bg-dark"></div>
+          {board && (
+            <div className="board-tiles">
+              <div className="column">
+                {board.B.map((num) => (
+                  <NumberTile
+                    value={num.value}
+                    letter="B"
+                    key={num.value}
+                    isSelected={num.selected}
+                    onSelect={selectNumber}
+                  />
+                ))}
+              </div>
+              <div className="column">
+                {board.I.map((num) => (
+                  <NumberTile
+                    value={num.value}
+                    letter="I"
+                    key={num.value}
+                    isSelected={num.selected}
+                    onSelect={selectNumber}
+                  />
+                ))}
+              </div>
+              <div className="column">
+                {board.N.map((num) => (
+                  <NumberTile
+                    value={num.value}
+                    letter="N"
+                    key={num.value}
+                    isSelected={num.selected}
+                    onSelect={selectNumber}
+                  />
+                ))}
+              </div>
+              <div className="column">
+                {board.G.map((num) => (
+                  <NumberTile
+                    value={num.value}
+                    letter="G"
+                    key={num.value}
+                    isSelected={num.selected}
+                    onSelect={selectNumber}
+                  />
+                ))}
+              </div>
+              <div className="column">
+                {board.O.map((num) => (
+                  <NumberTile
+                    value={num.value}
+                    letter="O"
+                    key={num.value}
+                    isSelected={num.selected}
+                    onSelect={selectNumber}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="container d-flex justify-content-between py-3 mt-3 player-actions">
+        <button className="btn btn-danger fw-bold">Leave Game</button>
+        <button className="btn btn-success fw-bold">BINGO!</button>
+        <button className="btn btn-light fw-bold">Game Rules</button>
       </div>
     </div>
   );
