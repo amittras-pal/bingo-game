@@ -1,0 +1,35 @@
+.player-board {
+  .divider {
+    height: 2px;
+  }
+  .board-layout {
+    display: flex;
+    flex-direction: column;
+    .board-tiles {
+      display: flex;
+      .column {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+.game-rules {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  z-index: 1000;
+  color: #29323c;
+  background: #9796f0;
+  background: -webkit-linear-gradient(312deg, #fbc7d4, #9796f0);
+  background: linear-gradient(312deg, #fbc7d4, #9796f0);
+
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    color: #ffffff;
+  }
+}
