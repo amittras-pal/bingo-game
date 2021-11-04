@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { DateTime } from "luxon";
 import "./Conductor.scss";
 
 function Conductor() {
-  const [currentNumber, setCurrentNumber] = useState(null);
+  // const [currentNumber, setCurrentNumber] = useState(null);
+  const [gameData, setGameData] = useState(null);
+
+  useEffect(() => {
+    const gameData = localStorage.getItem("gameData");
+    setGameData(JSON.parse(gameData));
+  }, []);
+
   return (
     <div className="container-fluid px-2 conductor">
       <div className="container my-3">
@@ -26,12 +34,26 @@ function Conductor() {
             <div className="glass-dark p-3 mb-3">
               <h2 className="text-light">Game Stats</h2>
               <p className="fw-bold">
-                <span className="text-light">Players Connected: </span>
-                <span className="text-warning">00</span>
+                <span className="text-light">Game Created: </span>
+                <span className="text-warning">
+                  {DateTime.fromISO(gameData?.created).toLocaleString(
+                    DateTime.DATETIME_MED
+                  )}
+                </span>
               </p>
               <p className="fw-bold">
                 <span className="text-light">Started: </span>
-                <span className="text-warning">Game Not Started Yet</span>
+                <span className="text-warning">{`${
+                  gameData?.started
+                    ? DateTime.fromISO(gameData?.started).toLocaleString(
+                        DateTime.DATETIME_MED
+                      )
+                    : "Game Not Started Yet"
+                }`}</span>
+              </p>
+              <p className="fw-bold">
+                <span className="text-light">Players Connected: </span>
+                <span className="text-warning">{gameData?.players.length}</span>
               </p>
               <p className="fw-bold">
                 <span className="text-light">Used Numbers: </span>

@@ -1,13 +1,26 @@
 import React from "react";
 import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { axiosInstance } from "../../../config/axiosConfig";
 import "./Create.scss";
+import { API_ENDPOINTS } from "../../../constants/constants";
 
 function Create() {
-  const createNewGame = (values) => {
-    console.log(values);
-    toast.success("Toast Test: " + values.gameTitle);
+  const history = useHistory();
+  const createNewGame = async (values) => {
+    try {
+      const { data } = await axiosInstance.post(API_ENDPOINTS.newGame, values);
+      toast.success(data.description);
+      localStorage.setItem("gameData", JSON.stringify(data.response));
+      history.push("/conductor");
+    } catch (error) {
+      const {
+        response: { data },
+      } = error;
+      toast.error(data.description);
+    }
   };
   const newGameForm = useFormik({
     initialValues: {
