@@ -16,20 +16,9 @@ function PlayerBoard() {
             name: "t3",
             playerName: "Someone",
           });
-          const { response: board } = data;
-          console.log(board);
-          board.N = [...board.N.slice(0, 2), "S", ...board.N.slice(2, 4)];
-          const boardState = {};
-          Object.entries(board).forEach(([letter, numbers]) => {
-            boardState[letter] = numbers.map((val) => ({
-              value: val,
-              selected: val === "S" ? true : false,
-            }));
-          });
-          console.log(boardState);
           // Required.
-          // localStorage.setItem("board", JSON.stringify(boardState));
-          setBoard(boardState);
+          // localStorage.setItem("board", JSON.stringify(data.response));
+          setBoard(data.response);
         }
       } catch (error) {
         console.log(error);
