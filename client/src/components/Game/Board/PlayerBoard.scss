@@ -1,3 +1,16 @@
-.player-board .divider {
-  height: 2px;
+.player-board {
+  .divider {
+    height: 2px;
+  }
+  .board-layout {
+    display: flex;
+    flex-direction: column;
+    .board-tiles {
+      display: flex;
+      .column {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
 }

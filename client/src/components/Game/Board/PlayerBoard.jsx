@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./PlayerBoard.scss";
+import { API_ENDPOINTS } from "../../../constants/constants";
 import { axiosInstance } from "../../../config/axiosConfig";
 import NumberTile from "./NumberTile/NumberTile";
 function PlayerBoard() {
@@ -11,8 +12,12 @@ function PlayerBoard() {
           console.log("Reading Local Storage");
           setBoard(JSON.parse(localStorage.getItem("board")));
         } else {
-          const { data } = await axiosInstance.get("/board/create-board");
+          const { data } = await axiosInstance.post(API_ENDPOINTS.joinGame, {
+            name: "t3",
+            playerName: "Someone",
+          });
           const { response: board } = data;
+          console.log(board);
           board.N = [...board.N.slice(0, 2), "S", ...board.N.slice(2, 4)];
           const boardState = {};
           Object.entries(board).forEach(([letter, numbers]) => {
@@ -21,7 +26,9 @@ function PlayerBoard() {
               selected: val === "S" ? true : false,
             }));
           });
-          localStorage.setItem("board", JSON.stringify(boardState));
+          console.log(boardState);
+          // Required.
+          // localStorage.setItem("board", JSON.stringify(boardState));
           setBoard(boardState);
         }
       } catch (error) {
@@ -37,10 +44,11 @@ function PlayerBoard() {
     column.forEach((entry) => {
       if (entry.value === val) entry.selected = true;
     });
-    localStorage.setItem(
-      "board",
-      JSON.stringify({ ...board, [letter]: column })
-    );
+    // Required.
+    // localStorage.setItem(
+    //   "board",
+    //   JSON.stringify({ ...board, [letter]: column })
+    // );
     setBoard((board) => ({ ...board, [letter]: column }));
   };
   return (
