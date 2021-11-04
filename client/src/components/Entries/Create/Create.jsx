@@ -13,7 +13,7 @@ function Create() {
     try {
       const { data } = await axiosInstance.post(API_ENDPOINTS.newGame, values);
       toast.success(data.description);
-      localStorage.setItem("gameData", JSON.stringify(data.response));
+      localStorage.setItem("gameData", data.response);
       history.push("/conductor");
     } catch (error) {
       const {

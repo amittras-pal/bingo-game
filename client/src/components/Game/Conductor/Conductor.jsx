@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { DateTime } from "luxon";
+import React from "react";
+import useConductor from "../../../hooks/conductorSocket";
 import "./Conductor.scss";
+import GameDetails from "./GameDetails/GameDetails";
+import GameStats from "./GameStats/GameStats";
 
 function Conductor() {
-  // const [currentNumber, setCurrentNumber] = useState(null);
-  const [gameData, setGameData] = useState(null);
-
-  useEffect(() => {
-    const gameData = localStorage.getItem("gameData");
-    setGameData(JSON.parse(gameData));
-  }, []);
+  const { gameData } = useConductor();
 
   return (
     <div className="container-fluid px-2 conductor">
@@ -31,68 +27,8 @@ function Conductor() {
             </div>
           </div>
           <div className="col-md-8 col-sm-12">
-            <div className="glass-dark p-3 mb-3">
-              <h2 className="text-light">Game Stats</h2>
-              <p className="fw-bold">
-                <span className="text-light">Game Created: </span>
-                <span className="text-warning">
-                  {DateTime.fromISO(gameData?.created).toLocaleString(
-                    DateTime.DATETIME_MED
-                  )}
-                </span>
-              </p>
-              <p className="fw-bold">
-                <span className="text-light">Started: </span>
-                <span className="text-warning">{`${
-                  gameData?.started
-                    ? DateTime.fromISO(gameData?.started).toLocaleString(
-                        DateTime.DATETIME_MED
-                      )
-                    : "Game Not Started Yet"
-                }`}</span>
-              </p>
-              <p className="fw-bold">
-                <span className="text-light">Players Connected: </span>
-                <span className="text-warning">{gameData?.players.length}</span>
-              </p>
-              <p className="fw-bold">
-                <span className="text-light">Used Numbers: </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  1
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  2
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  3
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  4
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  5
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  6
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  7
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  8
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  9
-                </span>
-                <span className="badge mx-1 rounded-pill bg-info text-dark">
-                  10
-                </span>
-              </p>
-            </div>
-            <div className="glass-dark p-3 mb-3">
-              <h2 className="text-light">Game Settings</h2>
-              <p className="fw-bold text-light">Win Pattern(s):</p>
-            </div>
+            <GameStats gameData={gameData} />
+            <GameDetails gameData={gameData} />
           </div>
         </div>
       </div>
