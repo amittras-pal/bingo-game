@@ -10,4 +10,8 @@ function createBoard() {
   return board;
 }
 
-module.exports = { createBoard };
+function getNextNumber(availableNumbers) {
+  return { next: availableNumbers.pop(), remaining: availableNumbers };
+}
+
+module.exports = { createBoard, getNextNumber };

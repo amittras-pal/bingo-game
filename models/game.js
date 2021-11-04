@@ -5,8 +5,11 @@ const gameSchema = new mongoose.Schema({
   conductorName: { type: String, required: true },
   availableNumbers: {
     type: [Number],
-    default: Array.from({ length: 75 }, (_, i) => i + 1),
+    default: Array.from({ length: 75 }, (_, i) => i + 1).sort(
+      () => 0.5 - Math.random()
+    ),
   },
+  usedNumbers: { type: [Number] },
   players: { type: [String] },
   created: { type: Date, default: Date.now },
   started: { type: Date },

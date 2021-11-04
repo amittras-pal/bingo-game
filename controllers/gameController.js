@@ -1,18 +1,38 @@
 const router = require("express").Router();
-const { createBoard } = require("../utils/utils");
+const { createBoard, getNextNumber } = require("../utils/utils");
 const Game = require("../models/game");
 
+router.post("/next-number", async (req, res) => {
+  const { gameId } = req.body;
+  const game = await Game.findById(gameId);
+  const { next, remaining } = getNextNumber(game.availableNumbers);
+  const updatedGame = await Game.findByIdAndUpdate(
+    gameId,
+    { $push: { usedNumbers: next }, availableNumbers: remaining },
+    { new: true, useFindAndModify: false }
+  );
+  res.json({
+    description: "Next Number retireved successfully!",
+    response: {
+      next,
+      usedNumbers: updatedGame.usedNumbers.sort((a, b) => a - b),
+      availableNumbers: updatedGame.availableNumbers.sort((a, b) => a - b),
+    },
+  });
+});
+
 router.post("/new", async (req, res) => {
-  const { name, conductorName } = req.body;
+  const { gameTitle, conductorName } = req.body;
   try {
-    const existing = await Game.findOne({ name });
+    const existing = await Game.findOne({ name: gameTitle });
     if (existing)
       return res.status(409).json({
-        description: "A game with that title is already in record.",
+        description:
+          "A game with that title is already in record. Please enter another title.",
         response: existing,
       });
     try {
-      const game = await new Game({ name, conductorName }).save();
+      const game = await new Game({ name: gameTitle, conductorName }).save();
       return res.json({ description: "New Game Created!", response: game });
     } catch (error) {
       return res
