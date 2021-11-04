@@ -30,10 +30,21 @@ const io = socketio(server, { cors: { origin: "*" } });
 // Socket IO Configuration.
 io.on("connection", (socket) => {
   console.log("New Socket Connected");
-  io.emit("identifyRole", "Identify Your Role.");
+  // Request identification for the newly connected socket.
+  socket.emit("identifyRole", "Identify Your Role.");
+
+  // If socket identifies as conductor.
   socket.on("idConductor", (gameId) => {
-    console.log(gameId);
+    console.log(`Conductor Connected for game Id ${gameId}`);
+    // Send game data to the socket.
     findGameById(gameId, socket);
+  });
+
+  // Start the game.
+  socket.on("startGame", (gameId) => {
+    console.log(`Starting Game: ${gameId}`);
+    // TODO: Should emit to only the game room.
+    io.emit("Game Started!");
   });
 
   // Disconnection.
