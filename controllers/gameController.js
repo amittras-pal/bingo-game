@@ -33,7 +33,7 @@ router.post("/new", async (req, res) => {
       });
     try {
       const game = await new Game({ name: gameTitle, conductorName }).save();
-      return res.json({ description: "New Game Created!", response: game });
+      return res.json({ description: "New Game Created!", response: game._id });
     } catch (error) {
       return res
         .status(400)
