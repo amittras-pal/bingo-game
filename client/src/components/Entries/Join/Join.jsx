@@ -14,7 +14,7 @@ function Join() {
     try {
       const { data } = await axiosInstance.post(API_ENDPOINTS.joinGame, values);
       toast.success(data.description);
-      localStorage.setItem("playerInfo", JSON.stringify(data.response));
+      localStorage.setItem("board", JSON.stringify(data.response.board));
       history.push("/game");
     } catch (error) {
       toast.error(error.response.data.description);
