@@ -52,17 +52,21 @@ function BingoModal({
       <Modal.Body>{bodyContent}</Modal.Body>
       {footerActions && (
         <Modal.Footer>
-          <button
-            className={`text-${secondaryBtnColor}`}
-            onClick={footerActions?.[0]}>
-            {secondaryLabel}
-          </button>
-          <div className="divider"></div>
-          <button
-            className={`text-${primaryBtnColor}`}
-            onClick={footerActions?.[1]}>
-            {primaryLabel}
-          </button>
+          {secondaryLabel && (
+            <button
+              className={`text-${secondaryBtnColor}`}
+              onClick={footerActions?.[0]}>
+              {secondaryLabel}
+            </button>
+          )}
+          {primaryLabel && secondaryLabel && <div className="divider"></div>}
+          {primaryLabel && (
+            <button
+              className={`text-${primaryBtnColor}`}
+              onClick={footerActions?.[1]}>
+              {primaryLabel}
+            </button>
+          )}
         </Modal.Footer>
       )}
     </Modal>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
+import { toast } from "react-toastify";
 
 const useConductorSocket = () => {
   // Ref to handle the socket instance.
@@ -15,13 +16,16 @@ const useConductorSocket = () => {
       const { gameId, gameTitle } = JSON.parse(
         localStorage.getItem("gameData")
       );
-      console.log(gameId);
       socketRef.current.emit("idConductor", { gameId, gameTitle });
+    });
+
+    socketRef.current.on("playerJoined", ({ playerName, players }) => {
+      toast.info(`${playerName} has joined the game.`, { autoClose: 1000 });
+      setGameData((gameData) => ({ ...gameData, players }));
     });
 
     // Listen for game Data.
     socketRef.current.on("gameData", (gameData) => {
-      console.log(gameData);
       setGameData(gameData);
     });
 

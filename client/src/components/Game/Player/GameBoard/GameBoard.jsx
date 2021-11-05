@@ -1,32 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { API_ENDPOINTS } from "../../../../constants/constants";
-import { axiosInstance } from "../../../../config/axiosConfig";
 import NumberTile from "../../../Shared/NumberTile/NumberTile";
 
 function GameBoard() {
   const [board, setBoard] = useState(null);
-  useEffect(() => {
-    async function retireveBoard() {
-      try {
-        if (localStorage["board"]) {
-          console.log("Reading Local Storage");
-          setBoard(JSON.parse(localStorage.getItem("board")));
-        } else {
-          const { data } = await axiosInstance.post(API_ENDPOINTS.joinGame, {
-            name: "t3",
-            playerName: "Someone",
-          });
-          localStorage.setItem("board", JSON.stringify(data.response));
-          setBoard(data.response);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    retireveBoard();
-  }, []);
   const selectNumber = (letter, val) => {
-    console.log(letter, val);
     const column = board[letter];
     column.forEach((entry) => {
       if (entry.value === val) entry.selected = true;
@@ -37,6 +14,11 @@ function GameBoard() {
     );
     setBoard((board) => ({ ...board, [letter]: column }));
   };
+
+  useEffect(() => {
+    const { board } = JSON.parse(localStorage.getItem("playerInfo"));
+    setBoard(board);
+  }, []);
 
   return (
     <div className="player-board container shadow d-flex justify-content-center align-items-center p-2 mt-2 glass-dark">

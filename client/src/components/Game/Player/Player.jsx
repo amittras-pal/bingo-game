@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import BingoModal from "../../Shared/BingoModal/BingoModal";
 import GameBoard from "./GameBoard/GameBoard";
@@ -13,9 +13,34 @@ import "./Player.scss";
 
 function Player() {
   const history = useHistory();
-  const [showConfirmLeave, setShowConfirmLeave] = useState(false);
+  const { playerData, connectPlayer } = usePlayerSocket();
 
-  const { playerData } = usePlayerSocket();
+  const [showConfirmLeave, setShowConfirmLeave] = useState(false);
+  const [showPatterns, setShowPatterns] = useState(false);
+  const [gameImages, setGameImages] = useState(null);
+
+  useEffect(() => {
+    const { boardSelection, boards } = JSON.parse(
+      localStorage.getItem("playerInfo")
+    );
+    const patterns = Object.entries(boards).map(([key, value]) => ({
+      value: key,
+      url: value,
+    }));
+    const gameBoards = patterns.filter((pattern) =>
+      boardSelection.includes(pattern.value)
+    );
+    setGameImages(gameBoards);
+  }, []);
+
+  useEffect(() => {
+    const { playerName, gameTitle } = JSON.parse(
+      localStorage.getItem("playerInfo")
+    );
+    connectPlayer({ playerName, gameTitle });
+  }, []);
+
+  const patternsModalHandler = () => setShowPatterns(!showPatterns);
 
   const confirmLeaveModalHandler = () => setShowConfirmLeave(!showConfirmLeave);
   const quitGame = () => {
@@ -38,7 +63,11 @@ function Player() {
             Quit
           </button>
           <button className="btn btn-success fw-bold me-2">BINGO!</button>
-          <button className="btn btn-light fw-bold">Patterns</button>
+          <button
+            className="btn btn-light fw-bold"
+            onClick={patternsModalHandler}>
+            Patterns
+          </button>
         </div>
         <div className="info">
           <a
@@ -50,6 +79,21 @@ function Player() {
           </a>
         </div>
       </div>
+      <BingoModal
+        show={showPatterns}
+        rootclose={true}
+        primaryLabel="OKAY"
+        primaryBtnColor="success"
+        bodyContent={
+          <div style={{ maxHeight: "70vh", overflowY: "auto" }}>
+            {gameImages?.map((image) => (
+              <img src={image.url} alt={image.value} className="img-fluid" />
+            ))}
+          </div>
+        }
+        headerContent={<h2>Win Patterns</h2>}
+        footerActions={[patternsModalHandler, patternsModalHandler]}
+      />
       <BingoModal
         show={showConfirmLeave}
         rootclose={true}

@@ -8,17 +8,17 @@ const usePlayerSocket = () => {
 
   useEffect(() => {
     socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
-    socketRef.current.on("identifyRole", (val) => {
-      const gameTitle = localStorage.getItem("gameData");
-      console.log(gameTitle);
-      socketRef.current.emit("idPlayer", gameTitle);
-    });
+    socketRef.current.on("playerData", (data) => setPlayerData(data));
     return () => {
-      socketRef.current.disconnect();
+      socketRef.current.disconnect("Some nmame");
     };
   }, []);
 
-  return { playerData };
+  function connectPlayer({ playerName, gameTitle }) {
+    socketRef.current.emit("idPlayer", { playerName, gameTitle });
+  }
+
+  return { playerData, connectPlayer };
 };
 
 export default usePlayerSocket;

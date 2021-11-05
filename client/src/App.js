@@ -11,16 +11,13 @@ function App() {
       </Router>
       <ToastContainer
         position="bottom-center"
-        autoClose={5500}
+        autoClose={2000}
         hideProgressBar={true}
         newestOnTop={false}
         transition={Slide}
         rtl={false}
         theme="colored"
         closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
       />
     </>
   );

@@ -1,21 +1,38 @@
 import React from "react";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
 import "./Join.scss";
+import { useHistory } from "react-router";
+import { axiosInstance } from "../../../config/axiosConfig";
+import { API_ENDPOINTS } from "../../../constants/constants";
 
 function Join() {
+  const history = useHistory();
+
+  const joinGame = async (values) => {
+    try {
+      const { data } = await axiosInstance.post(API_ENDPOINTS.joinGame, values);
+      toast.success(data.description);
+      localStorage.setItem("playerInfo", JSON.stringify(data.response));
+      history.push("/game");
+    } catch (error) {
+      toast.error(error.response.description);
+    }
+  };
+
   const joinGameForm = useFormik({
     initialValues: {
-      gameId: "",
+      gameTitle: "",
       playerName: "",
     },
     validationSchema: Yup.object({
-      gameId: Yup.string().required(
+      gameTitle: Yup.string().required(
         "Please provide the game ID you want to join"
       ),
       playerName: Yup.string().required("Enter your name as the player."),
     }),
-    onSubmit: (values) => console.log("values: ", values),
+    onSubmit: joinGame,
   });
 
   return (
@@ -35,7 +52,7 @@ function Join() {
                 type="text"
                 autoFocus
                 className="form-control form-control-sm"
-                name="gameId"
+                name="gameTitle"
                 autoComplete="off"
                 placeholder="Enter Game ID provided to you. . ."
                 onChange={joinGameForm.handleChange}
