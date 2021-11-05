@@ -13,7 +13,7 @@ function Home() {
         <div className="d-flex flex-column mt-4 w-100">
           <Link
             to="/new-game"
-            className="btn btn-lg shadow fw-bold btn-success mb-4">
+            className="btn btn-lg shadow fw-bold btn-warning mb-4">
             START A NEW GAME
           </Link>
           <Link

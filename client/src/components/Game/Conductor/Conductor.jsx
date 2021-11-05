@@ -13,7 +13,7 @@ function Conductor() {
         <div className="row">
           <div className="col-md-4 col-sm-12">
             <div className="generator-tile mb-3 p-3 text-center shadow glass-dark">
-              {gameData.started || (
+              {gameData?.started || (
                 <h6 className="text-light">
                   Start the game to generate the first number
                 </h6>
