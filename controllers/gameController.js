@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const { createBoard, getNextNumber } = require("../utils/utils");
+const { boardImgLinks } = require("../constants/constants");
 const Game = require("../models/game");
+
+router.get("/patterns", (req, res) => {
+  res.json(boardImgLinks);
+});
 
 router.post("/next-number", async (req, res) => {
   const { gameId } = req.body;
