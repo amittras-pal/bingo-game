@@ -18,6 +18,7 @@ function App() {
         rtl={false}
         theme="colored"
         closeOnClick
+        pauseOnFocusLoss={false}
       />
     </>
   );
