@@ -12,12 +12,21 @@ const useConductorSocket = () => {
     socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
 
     socketRef.current.on("playerJoined", ({ playerName, players }) => {
-      toast.info(`${playerName} has joined the game.`, { autoClose: 1000 });
+      // toast.info(`${playerName} has joined the game.`, { autoClose: 1000 });
       setGameData((gameData) => ({ ...gameData, players }));
     });
 
     socketRef.current.on("gameData", (gameData) => {
       setGameData(gameData);
+    });
+
+    socketRef.current.on("gameStartedData", (gameData) => {
+      setGameData(gameData);
+      toast.info(`Game ${gameData.name} has started.`);
+    });
+
+    socketRef.current.on("updatedGameState", ({ usedNumbers, next }) => {
+      setGameData((prev) => ({ ...prev, usedNumbers, next }));
     });
 
     const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
@@ -34,7 +43,11 @@ const useConductorSocket = () => {
     socketRef.current.emit("startGame", { gameId, gameTitle });
   };
 
-  return { gameData, startGame };
+  const generateNext = ({ gameId, gameTitle }) => {
+    socketRef.current.emit("generateNext", { gameId, gameTitle });
+  };
+
+  return { gameData, startGame, generateNext };
 };
 
 export default useConductorSocket;
