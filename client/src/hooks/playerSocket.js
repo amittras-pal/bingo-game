@@ -4,11 +4,8 @@ import socketIOClient from "socket.io-client";
 const usePlayerSocket = () => {
   const socketRef = useRef();
 
-  const [playerData, setPlayerData] = useState(null);
-
   useEffect(() => {
     socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
-    socketRef.current.on("playerData", (data) => setPlayerData(data));
     return () => {
       socketRef.current.disconnect("Some nmame");
     };
@@ -18,7 +15,7 @@ const usePlayerSocket = () => {
     socketRef.current.emit("idPlayer", { playerName, gameTitle });
   }
 
-  return { playerData, connectPlayer };
+  return { connectPlayer };
 };
 
 export default usePlayerSocket;

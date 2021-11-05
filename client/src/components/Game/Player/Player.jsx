@@ -87,7 +87,12 @@ function Player() {
         bodyContent={
           <div style={{ maxHeight: "70vh", overflowY: "auto" }}>
             {gameImages?.map((image) => (
-              <img src={image.url} alt={image.value} className="img-fluid" />
+              <img
+                src={image.url}
+                alt={image.value}
+                className="img-fluid"
+                key={image.value}
+              />
             ))}
           </div>
         }

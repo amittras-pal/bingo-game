@@ -52,7 +52,7 @@ router.post("/join-game", async (req, res) => {
             { new: true, useFindAndModify: false }
           );
           return res.json({
-            description: "Successfully connected to the game.",
+            description: `Connected to Game: ${gameTitle}`,
             response: {
               gameTitle,
               playerName,

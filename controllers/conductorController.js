@@ -12,6 +12,11 @@ async function findGameById(gameId, gameTitle, socket) {
   }
 }
 
+async function startGame(gameId, gameTitle, socket, io) {
+  console.log(`Starting Game: ${gameTitle}`);
+}
+
 module.exports = {
   findGameById,
+  startGame,
 };

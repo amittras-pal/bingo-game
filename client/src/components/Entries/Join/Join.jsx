@@ -17,7 +17,7 @@ function Join() {
       localStorage.setItem("playerInfo", JSON.stringify(data.response));
       history.push("/game");
     } catch (error) {
-      toast.error(error.response.description);
+      toast.error(error.response.data.description);
     }
   };
 

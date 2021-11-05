@@ -5,6 +5,7 @@ import GameDetails from "./GameDetails/GameDetails";
 import GameStats from "./GameStats/GameStats";
 
 function Conductor() {
+  const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
   const { gameData, startGame } = useConductorSocket();
 
   return (
@@ -24,7 +25,7 @@ function Conductor() {
               <div className="conductor-actions mt-4">
                 <button
                   className="btn btn-warning fw-bold shadow"
-                  onClick={startGame}>
+                  onClick={() => startGame({ gameId, gameTitle })}>
                   START GAME
                 </button>
               </div>

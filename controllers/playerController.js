@@ -4,11 +4,6 @@ const Game = require("../models/game");
 async function notifyPlayerConnected(gameTitle, playerName, socket, io) {
   const game = await Game.findOne({ name: gameTitle });
   socket.join(gameTitle);
-  socket.emit("playerData", {
-    playerName,
-    gameTitle,
-    board: createBoard(),
-  });
   io.to(gameTitle).emit("playerJoined", {
     playerName,
     players: game.players,

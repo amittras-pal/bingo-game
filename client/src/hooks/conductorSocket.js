@@ -11,23 +11,17 @@ const useConductorSocket = () => {
   useEffect(() => {
     socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
 
-    // Identify the client as a conductor.
-    socketRef.current.on("identifyRole", (val) => {
-      const { gameId, gameTitle } = JSON.parse(
-        localStorage.getItem("gameData")
-      );
-      socketRef.current.emit("idConductor", { gameId, gameTitle });
-    });
-
     socketRef.current.on("playerJoined", ({ playerName, players }) => {
       toast.info(`${playerName} has joined the game.`, { autoClose: 1000 });
       setGameData((gameData) => ({ ...gameData, players }));
     });
 
-    // Listen for game Data.
     socketRef.current.on("gameData", (gameData) => {
       setGameData(gameData);
     });
+
+    const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
+    socketRef.current.emit("idConductor", { gameId, gameTitle });
 
     // Disconnect on component unmount.
     return () => {
@@ -35,9 +29,9 @@ const useConductorSocket = () => {
     };
   }, []);
 
-  // Other user action functions.
-  const startGame = () => {
-    socketRef.current.emit("startGame", gameData._id);
+  // start the game.
+  const startGame = ({ gameId, gameTitle }) => {
+    socketRef.current.emit("startGame", { gameId, gameTitle });
   };
 
   return { gameData, startGame };

@@ -8,7 +8,10 @@ require("dotenv").config();
 
 // Required Files
 const gameController = require("./controllers/gameController");
-const { findGameById } = require("./controllers/conductorController");
+const {
+  findGameById,
+  startGame,
+} = require("./controllers/conductorController");
 const { notifyPlayerConnected } = require("./controllers/playerController");
 
 // Env Variables Config
@@ -30,10 +33,6 @@ const io = socketio(server, { cors: { origin: "*" } });
 
 // Socket IO Configuration.
 io.on("connection", (socket) => {
-  console.log("New Socket Connected");
-  // Request identification for the newly connected socket.
-  socket.emit("identifyRole", "Identify Your Role.");
-
   // If socket identifies as conductor.
   socket.on("idConductor", ({ gameId, gameTitle }) => {
     console.log(
@@ -44,14 +43,11 @@ io.on("connection", (socket) => {
 
   // If socket identifies as player.
   socket.on("idPlayer", ({ gameTitle, playerName }) => {
-    console.log(`Player ${playerName} Connected for Group: ${gameTitle}`);
     notifyPlayerConnected(gameTitle, playerName, socket, io);
   });
 
-  socket.on("startGame", (gameId) => {
-    console.log(`Starting Game: ${gameId}`);
-    // TODO: Should emit to only the game room.
-    io.emit("Game Started!");
+  socket.on("startGame", ({ gameId, gameTitle }) => {
+    startGame(gameId, gameTitle, socket, io);
   });
 
   // Disconnection.
