@@ -34,7 +34,7 @@ function Create() {
     try {
       const { data } = await axiosInstance.post(API_ENDPOINTS.newGame, values);
       toast.success(data.description);
-      localStorage.setItem("gameData", data.response);
+      localStorage.setItem("gameData", JSON.stringify(data.response));
       history.push("/conductor");
     } catch (error) {
       const {
@@ -63,9 +63,7 @@ function Create() {
   });
 
   return (
-    <div
-      className="container-fluid px-3"
-      style={{ overflowY: "auto", maxHeight: "100vh" }}>
+    <div className="container-fluid px-2 scrollable">
       <div className="container d-flex flex-column justify-content-center align-items-center glass-dark my-5 p-3">
         <h2 className="text-light">Create a New Game</h2>
         {gamePatterns && (

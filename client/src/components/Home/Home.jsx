@@ -4,7 +4,7 @@ import "./Home.scss";
 
 function Home() {
   return (
-    <div className="container-fluid px-3">
+    <div className="container-fluid px-2">
       <div className="container d-flex flex-column justify-content-center align-items-center glass-dark my-5 p-3">
         <h1 className="text-light text-center pb-4 border-light border-bottom w-100">
           Welcome to

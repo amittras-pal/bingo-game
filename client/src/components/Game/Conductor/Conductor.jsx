@@ -8,8 +8,8 @@ function Conductor() {
   const { gameData, startGame } = useConductorSocket();
 
   return (
-    <div className="container-fluid px-2 conductor">
-      <div className="container my-3">
+    <div className="container-fluid px-2 conductor scrollable">
+      <div className="container my-3 p-0">
         <div className="row">
           <div className="col-md-4 col-sm-12">
             <div className="generator-tile mb-3 p-3 text-center shadow glass-dark">
