@@ -34,8 +34,10 @@ io.on("connection", (socket) => {
   socket.emit("identifyRole", "Identify Your Role.");
 
   // If socket identifies as conductor.
-  socket.on("idConductor", (gameId) => {
-    console.log(`Conductor Connected for game Id ${gameId}`);
+  socket.on("idConductor", ({ gameId, gameTitle }) => {
+    console.log(
+      `Conductor Connected for game Id ${gameId} | Join Group: ${gameTitle}`
+    );
     // Send game data to the socket.
     findGameById(gameId, socket);
   });
