@@ -11,6 +11,7 @@ const gameController = require("./controllers/gameController");
 const {
   findGameById,
   startGame,
+  generateNumber,
 } = require("./controllers/conductorController");
 const { notifyPlayerConnected } = require("./controllers/playerController");
 
@@ -48,6 +49,13 @@ io.on("connection", (socket) => {
 
   socket.on("startGame", ({ gameId, gameTitle }) => {
     startGame(gameId, gameTitle, socket, io);
+    setTimeout(() => {
+      generateNumber(gameId, gameTitle, socket, io);
+    }, 2000);
+  });
+
+  socket.on("generateNext", ({ gameId, gameTitle }) => {
+    generateNumber(gameId, gameTitle, socket, io);
   });
 
   // Disconnection.

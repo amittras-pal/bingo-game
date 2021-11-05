@@ -40,8 +40,8 @@ function createBoard() {
   return boardState;
 }
 
-function getNextNumber(availableNumbers) {
-  return { next: availableNumbers.pop(), remaining: availableNumbers };
+function getNextNumber(array) {
+  return { next: shuffleArray(array).pop(), remaining: array };
 }
 
 module.exports = {
