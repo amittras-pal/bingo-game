@@ -16,7 +16,7 @@ function GameBoard() {
   };
 
   useEffect(() => {
-    const { board } = JSON.parse(localStorage.getItem("playerInfo"));
+    const board = JSON.parse(localStorage.getItem("board"));
     setBoard(board);
   }, []);
 

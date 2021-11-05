@@ -13,7 +13,7 @@ import "./Player.scss";
 
 function Player() {
   const history = useHistory();
-  const { playerData, connectPlayer } = usePlayerSocket();
+  const { claimBingo } = usePlayerSocket();
 
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);
   const [showPatterns, setShowPatterns] = useState(false);
@@ -31,13 +31,6 @@ function Player() {
       boardSelection.includes(pattern.value)
     );
     setGameImages(gameBoards);
-  }, []);
-
-  useEffect(() => {
-    const { playerName, gameTitle } = JSON.parse(
-      localStorage.getItem("playerInfo")
-    );
-    connectPlayer({ playerName, gameTitle });
   }, []);
 
   const patternsModalHandler = () => setShowPatterns(!showPatterns);
