@@ -44,7 +44,11 @@ router.post("/join-game", async (req, res) => {
   try {
     const existing = await Game.findOne({ name: gameTitle });
     if (existing) {
-      if (!existing.players.includes(playerName)) {
+      if (existing.started) {
+        return res
+          .status(403)
+          .json({ description: "This Game is already in progress." });
+      } else if (!existing.players.includes(playerName)) {
         try {
           await Game.updateOne(
             { name: gameTitle },
