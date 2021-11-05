@@ -9,6 +9,7 @@ require("dotenv").config();
 // Required Files
 const gameController = require("./controllers/gameController");
 const { findGameById } = require("./controllers/conductorController");
+const { notifyPlayerConnected } = require("./controllers/playerController");
 
 // Env Variables Config
 const port = process.env.PORT || 5000;
@@ -38,11 +39,15 @@ io.on("connection", (socket) => {
     console.log(
       `Conductor Connected for game Id ${gameId} | Join Group: ${gameTitle}`
     );
-    // Send game data to the socket.
-    findGameById(gameId, socket);
+    findGameById(gameId, gameTitle, socket);
   });
 
-  // Start the game.
+  // If socket identifies as player.
+  socket.on("idPlayer", ({ gameTitle, playerName }) => {
+    console.log(`Player ${playerName} Connected for Group: ${gameTitle}`);
+    notifyPlayerConnected(gameTitle, playerName, socket, io);
+  });
+
   socket.on("startGame", (gameId) => {
     console.log(`Starting Game: ${gameId}`);
     // TODO: Should emit to only the game room.

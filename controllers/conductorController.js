@@ -1,10 +1,15 @@
 const Game = require("../models/game");
 
-// TODO: Error Handling and refining.
-async function findGameById(gameId, socket) {
-  const game = await Game.findById(gameId);
-  if (game) socket.emit("gameData", game);
-  else socket.emit("gameData", null);
+async function findGameById(gameId, gameTitle, socket) {
+  try {
+    const game = await Game.findById(gameId);
+    if (game) {
+      socket.join(gameTitle);
+      socket.emit("gameData", game);
+    }
+  } catch (error) {
+    socket.emit("gameData", null);
+  }
 }
 
 module.exports = {
