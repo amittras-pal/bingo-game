@@ -44,4 +44,8 @@ function getNextNumber(availableNumbers) {
   return { next: availableNumbers.pop(), remaining: availableNumbers };
 }
 
-module.exports = { createBoard, getNextNumber };
+module.exports = {
+  createBoard,
+  getNextNumber,
+  shuffleArray,
+};

@@ -8,11 +8,14 @@ import {
   faForward,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import usePlayerSocket from "../../../hooks/playerSocket";
 import "./Player.scss";
 
 function Player() {
   const history = useHistory();
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);
+
+  const { playerData } = usePlayerSocket();
 
   const confirmLeaveModalHandler = () => setShowConfirmLeave(!showConfirmLeave);
   const quitGame = () => {

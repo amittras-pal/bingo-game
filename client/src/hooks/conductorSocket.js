@@ -12,9 +12,11 @@ const useConductorSocket = () => {
 
     // Identify the client as a conductor.
     socketRef.current.on("identifyRole", (val) => {
-      const gameId = localStorage.getItem("gameData");
+      const { gameId, gameTitle } = JSON.parse(
+        localStorage.getItem("gameData")
+      );
       console.log(gameId);
-      socketRef.current.emit("idConductor", gameId);
+      socketRef.current.emit("idConductor", { gameId, gameTitle });
     });
 
     // Listen for game Data.

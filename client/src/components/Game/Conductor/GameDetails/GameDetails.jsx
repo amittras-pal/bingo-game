@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 function GameDetails({ gameData }) {
-  console.log(gameData?.boardSelection);
   const [gameImages, setGameImages] = useState(null);
   useEffect(() => {
     async function retrieveBoardOptions() {

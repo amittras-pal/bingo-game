@@ -29,14 +29,17 @@ function GameStats({ gameData }) {
       </p>
       <p className="fw-bold">
         <span className="text-light">Used Numbers: </span>
-        {gameData?.usedNumbers.length > 0 &&
+        {gameData?.usedNumbers.length > 0 ? (
           gameData.usedNumbers
             .sort((a, b) => a - b)
             .map((num) => (
-              <span className="badge mx-1  bg-info text-dark shadow" key={num}>
+              <span className="badge mx-1 bg-info text-dark shadow" key={num}>
                 {num}
               </span>
-            ))}
+            ))
+        ) : (
+          <span className="fw-bold text-warning">Game not staarted yet.</span>
+        )}
       </p>
     </div>
   );

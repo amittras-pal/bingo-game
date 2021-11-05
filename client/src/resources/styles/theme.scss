@@ -23,3 +23,8 @@ body {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.scrollable {
+  max-height: 97vh;
+  overflow-y: auto;
+}
