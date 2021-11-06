@@ -2,7 +2,6 @@ import React from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import "./Join.scss";
 import { useHistory } from "react-router";
 import { axiosInstance } from "../../../config/axiosConfig";
 import { API_ENDPOINTS } from "../../../constants/constants";
