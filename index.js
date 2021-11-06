@@ -13,7 +13,10 @@ const {
   startGame,
   generateNumber,
 } = require("./controllers/conductorController");
-const { notifyPlayerConnected } = require("./controllers/playerController");
+const {
+  notifyPlayerConnected,
+  notifyBingoClaimed,
+} = require("./controllers/playerController");
 
 // Env Variables Config
 const port = process.env.PORT || 5000;
@@ -44,6 +47,7 @@ io.on("connection", (socket) => {
 
   // If socket identifies as player.
   socket.on("idPlayer", ({ gameTitle, playerName }) => {
+    console.log("player connected");
     notifyPlayerConnected(gameTitle, playerName, socket, io);
   });
 
@@ -56,6 +60,11 @@ io.on("connection", (socket) => {
 
   socket.on("generateNext", ({ gameId, gameTitle }) => {
     generateNumber(gameId, gameTitle, socket, io);
+  });
+
+  socket.on("claimBingo", ({ playerName, gameTitle, board }) => {
+    console.log(`${playerName} has claimed Bingo for ${gameTitle}`);
+    notifyBingoClaimed(gameTitle, playerName, board, socket, io);
   });
 
   // Disconnection.
