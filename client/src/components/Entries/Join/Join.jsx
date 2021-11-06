@@ -14,7 +14,15 @@ function Join() {
     try {
       const { data } = await axiosInstance.post(API_ENDPOINTS.joinGame, values);
       toast.success(data.description);
-      localStorage.setItem("board", JSON.stringify(data.response.board));
+      const { playerName, gameTitle, boardSelection, boards, board } =
+        data.response;
+      // Save player info to client: {Player.jsx} will read this.
+      localStorage.setItem(
+        "playerInfo",
+        JSON.stringify({ playerName, gameTitle, boardSelection, boards })
+      );
+      // save board to localstorage: {GameBoard.jsx} will read this.
+      localStorage.setItem("board", JSON.stringify(board));
       history.push("/game");
     } catch (error) {
       toast.error(error.response.data.description);
@@ -83,7 +91,7 @@ function Join() {
               type="submit"
               className="btn btn-sm btn-warning fw-bold shadow"
               disabled={!joinGameForm.isValid}>
-              Join GAME
+              JOIN GAME
             </button>
           </div>
         </form>
