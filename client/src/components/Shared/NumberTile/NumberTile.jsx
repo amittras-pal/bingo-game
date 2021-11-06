@@ -3,15 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./NumberTile.scss";
 
-function NumberTile({ letter, value, isHeader, isSelected, onSelect }) {
+function NumberTile({
+  letter,
+  value,
+  isHeader,
+  isSelected,
+  onSelect,
+  isConductorViewing,
+}) {
   // const [isSelected, setIsSelected] = useState(typeof value === "string");
   return (
     <>
       {isHeader ? (
         <button
           className={`number-tile ${isHeader ? "header-tile" : ""}`}
-          disabled
-        >
+          disabled>
           <span className="tile-value">{value}</span>
         </button>
       ) : (
@@ -20,8 +26,7 @@ function NumberTile({ letter, value, isHeader, isSelected, onSelect }) {
             isSelected ? "number-tile--selected" : "number-tile--unselected"
           } `}
           onClick={() => onSelect(letter, value)}
-          disabled={isSelected}
-        >
+          disabled={isSelected || isConductorViewing}>
           <span className="tile-value">
             {typeof value === "string" ? (
               <FontAwesomeIcon icon={faStar} />
