@@ -1,20 +1,4 @@
-.player-board {
-  .divider {
-    height: 2px;
-  }
-  .board-layout {
-    display: flex;
-    flex-direction: column;
-    .board-tiles {
-      display: flex;
-      .column {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-  }
-}
-.game-rules {
+.game-rules-btn {
   width: 40px;
   height: 40px;
   border-radius: 20px;

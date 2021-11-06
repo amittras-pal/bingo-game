@@ -7,6 +7,7 @@ const useConductorSocket = () => {
   const socketRef = useRef();
   // Store and update the game data here.
   const [gameData, setGameData] = useState(null);
+  const [claimedBoard, setClaimedBoard] = useState(null);
   // Pull data on render: Need to find better entry points.
   useEffect(() => {
     socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
@@ -29,6 +30,15 @@ const useConductorSocket = () => {
       setGameData((prev) => ({ ...prev, usedNumbers, next }));
     });
 
+    socketRef.current.on(
+      "playerClaimedBingo",
+      ({ playerName, board, description }) => {
+        console.log(board);
+        toast.info(description);
+        setClaimedBoard({ board, playerName });
+      }
+    );
+
     const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
     socketRef.current.emit("idConductor", { gameId, gameTitle });
 
@@ -47,7 +57,7 @@ const useConductorSocket = () => {
     socketRef.current.emit("generateNext", { gameId, gameTitle });
   };
 
-  return { gameData, startGame, generateNext };
+  return { gameData, claimedBoard, startGame, generateNext };
 };
 
 export default useConductorSocket;

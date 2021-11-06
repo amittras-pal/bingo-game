@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import BingoModal from "../../Shared/BingoModal/BingoModal";
 import GameBoard from "./GameBoard/GameBoard";
@@ -13,16 +13,17 @@ import "./Player.scss";
 
 function Player() {
   const history = useHistory();
-  const { claimBingo } = usePlayerSocket();
+
+  const { playerName, gameTitle, boardSelection, boards } = JSON.parse(
+    localStorage.getItem("playerInfo")
+  );
+  const { claimBingo, claimStatus } = usePlayerSocket();
 
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);
   const [showPatterns, setShowPatterns] = useState(false);
   const [gameImages, setGameImages] = useState(null);
 
-  useEffect(() => {
-    const { boardSelection, boards } = JSON.parse(
-      localStorage.getItem("playerInfo")
-    );
+  const patternsModalHandler = () => {
     const patterns = Object.entries(boards).map(([key, value]) => ({
       value: key,
       url: value,
@@ -31,9 +32,8 @@ function Player() {
       boardSelection.includes(pattern.value)
     );
     setGameImages(gameBoards);
-  }, []);
-
-  const patternsModalHandler = () => setShowPatterns(!showPatterns);
+    setShowPatterns(!showPatterns);
+  };
 
   const confirmLeaveModalHandler = () => setShowConfirmLeave(!showConfirmLeave);
   const quitGame = () => {
@@ -55,7 +55,11 @@ function Player() {
             onClick={confirmLeaveModalHandler}>
             Quit
           </button>
-          <button className="btn btn-success fw-bold me-2">BINGO!</button>
+          <button
+            className="btn btn-success fw-bold me-2"
+            onClick={() => claimBingo({ playerName, gameTitle })}>
+            BINGO!
+          </button>
           <button
             className="btn btn-light fw-bold"
             onClick={patternsModalHandler}>
@@ -64,7 +68,7 @@ function Player() {
         </div>
         <div className="info">
           <a
-            className="game-rules shadow"
+            className="game-rules-btn shadow"
             target="_blank"
             rel="noreferrer"
             href="https://www.atlanticbingosupply.com/about/howto-play-bingo">
@@ -72,6 +76,7 @@ function Player() {
           </a>
         </div>
       </div>
+      {/* Patterns */}
       <BingoModal
         show={showPatterns}
         rootclose={true}
@@ -92,6 +97,7 @@ function Player() {
         headerContent={<h2>Win Patterns</h2>}
         footerActions={[patternsModalHandler, patternsModalHandler]}
       />
+      {/* Confirm Quit Game */}
       <BingoModal
         show={showConfirmLeave}
         rootclose={true}
@@ -118,6 +124,13 @@ function Player() {
           <p className="m-0">Are you sure you want to quit this game?</p>
         }
         footerActions={[continuePlaying, quitGame]}
+      />
+
+      {/* Bingo Claimed */}
+      <BingoModal
+        show={claimStatus?.showClaimed}
+        bodyContent={<p>{claimStatus?.description}</p>}
+        headerContent={<h2>Bingo has been claimed!</h2>}
       />
     </div>
   );
