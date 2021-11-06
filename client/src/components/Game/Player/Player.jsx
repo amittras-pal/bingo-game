@@ -49,39 +49,38 @@ function Player() {
     <div className="container-fluid px-3">
       <GameBoard />
       <div className="container d-flex justify-content-between py-3 px-0 mt-3 player-actions">
-        <div className="actions">
-          <button
-            className="btn btn-danger fw-bold me-2"
-            onClick={confirmLeaveModalHandler}>
-            Quit
-          </button>
-          <button
-            className="btn btn-success fw-bold me-2"
-            onClick={() => claimBingo({ playerName, gameTitle })}>
-            BINGO!
-          </button>
-          <button
-            className="btn btn-light fw-bold"
-            onClick={patternsModalHandler}>
-            Patterns
-          </button>
-        </div>
         <div className="info">
           <a
-            className="game-rules-btn shadow"
+            className="game-rules-btn bg-dark text-light shadow"
             target="_blank"
             rel="noreferrer"
             href="https://www.atlanticbingosupply.com/about/howto-play-bingo">
             <FontAwesomeIcon icon={faInfoCircle} />
           </a>
         </div>
+        <div className="actions">
+          <button
+            className="btn btn-primary fw-bold me-3"
+            onClick={() => claimBingo({ playerName, gameTitle })}>
+            BINGO!
+          </button>
+          <button
+            className="btn btn-outline-primary fw-bold"
+            onClick={patternsModalHandler}>
+            PATTERNS
+          </button>
+          <button
+            className="btn btn-link text-danger fw-bold text-decoration-none"
+            onClick={confirmLeaveModalHandler}>
+            <FontAwesomeIcon icon={faTimes} /> QUIT
+          </button>
+        </div>
       </div>
-      {/* Patterns */}
       <BingoModal
         show={showPatterns}
         rootclose={true}
         primaryLabel="OKAY"
-        primaryBtnColor="success"
+        primaryBtnColor="primary"
         bodyContent={
           <div style={{ maxHeight: "70vh", overflowY: "auto" }}>
             {gameImages?.map((image) => (
@@ -94,7 +93,7 @@ function Player() {
             ))}
           </div>
         }
-        headerContent={<h2>Win Patterns</h2>}
+        headerContent={<h2 className="text-primary">Win Patterns</h2>}
         footerActions={[patternsModalHandler, patternsModalHandler]}
       />
       {/* Confirm Quit Game */}

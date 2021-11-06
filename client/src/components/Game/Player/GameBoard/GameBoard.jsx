@@ -21,7 +21,7 @@ function GameBoard() {
   }, []);
 
   return (
-    <div className="player-board container shadow d-flex justify-content-center align-items-center p-2 mt-2 glass-dark">
+    <div className="player-board container border border-primary rounded bg-light shadow d-flex justify-content-center align-items-center p-2 mt-2">
       <div className="board-layout">
         <div className="board-header">
           <NumberTile value="B" isHeader />
@@ -30,7 +30,7 @@ function GameBoard() {
           <NumberTile value="G" isHeader />
           <NumberTile value="O" isHeader />
         </div>
-        <div className="divider w-100 my-3 bg-dark"></div>
+        <div className="divider w-100 my-3 bg-primary"></div>
         {board && (
           <div className="board-tiles">
             <div className="column">

@@ -15,27 +15,29 @@ function Conductor() {
       <div className="container my-3 p-0">
         <div className="row">
           <div className="col-md-4 col-sm-12">
-            <div className="generator-tile mb-3 p-3 text-center shadow glass-dark">
+            <div className="generator-tile mb-3 p-3 text-center shadow bg-light border border-primary rounded">
               {gameData?.started ? (
-                <h6 className="text-light">Click button to get next number</h6>
+                <h6 className="text-primary">
+                  Click button to get next number
+                </h6>
               ) : (
-                <h6 className="text-light">
+                <h6 className="text-primary">
                   Start the game to generate the first number
                 </h6>
               )}
-              <div className="container text-center current text-light fw-bold">
+              <div className="container text-center current text-primary fw-bold">
                 {gameData?.next ? <>{gameData.next}</> : <>XX</>}
               </div>
               <div className="conductor-actions mt-4">
                 {gameData?.started ? (
                   <button
-                    className="btn btn-light fw-bold shadow"
+                    className="btn btn-outline-primary fw-bold shadow"
                     onClick={() => generateNext({ gameId, gameTitle })}>
                     NEXT NUMBER
                   </button>
                 ) : (
                   <button
-                    className="btn btn-warning fw-bold shadow"
+                    className="btn btn-primary fw-bold shadow"
                     onClick={() => startGame({ gameId, gameTitle })}>
                     START GAME
                   </button>
@@ -45,11 +47,10 @@ function Conductor() {
           </div>
           <div className="col-md-8 col-sm-12">
             {claimedBoard && (
-              <div className="claim-tile glass-dark text-center mb-3 p-3">
-                <h3 className="text-light">
+              <div className="claim-tile shadow border border-primary bg-light rounded text-center mb-3 p-3">
+                <h3 className="text-primary">
                   {claimedBoard.playerName}'s Board.
                 </h3>
-                {/* {JSON.stringify(claimedBoard.board)} */}
                 <div className="player-board d-flex justify-content-center align-items-center">
                   <div className="board-layout">
                     <div className="board-tiles">
@@ -111,12 +112,12 @@ function Conductor() {
                     </div>
                   </div>
                 </div>
-                <div className="d-flex justify-content-between my-2">
-                  <button className="btn btn-warning fw-bold">
-                    APPROVE CLAIM
+                <div className="d-flex justify-content-end mt-3 mb-2">
+                  <button className="btn btn-primary fw-bold me-3">
+                    WINNER
                   </button>
-                  <button className="btn btn-light fw-bold">
-                    DECLARE BOGEY
+                  <button className="btn btn-outline-primary fw-bold">
+                    BOGEY
                   </button>
                 </div>
               </div>

@@ -16,7 +16,7 @@ function NumberTile({
     <>
       {isHeader ? (
         <button
-          className={`number-tile ${isHeader ? "header-tile" : ""}`}
+          className={`number-tile ${isHeader ? "bg-dark text-light" : ""}`}
           disabled>
           <span className="tile-value">{value}</span>
         </button>

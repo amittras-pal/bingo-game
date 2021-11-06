@@ -1,3 +1,4 @@
+@import "../../../resources/styles/variables";
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 576px) {
   .number-tile {
@@ -55,17 +56,14 @@
     outline: 2px dashed #ffffffaa;
   }
   &--unselected {
-    color: #fbc7d4;
-    background: #485563;
-    background: -webkit-linear-gradient(174deg, #29323c, #485563);
-    background: linear-gradient(174deg, #29323c, #485563);
-    border: 1px solid #fbc7d4;
+    color: $primary;
+    background-color: rgb(248, 249, 250);
+    border: 1px solid $primary;
   }
   &--selected {
-    color: #29323c;
-    background: #9796f0;
-    background: -webkit-linear-gradient(312deg, #fbc7d4, #9796f0);
-    background: linear-gradient(312deg, #fbc7d4, #9796f0);
+    color: rgb(248, 249, 250);
+    background: -webkit-linear-gradient(312deg, $primary, $secondary);
+    background: linear-gradient(312deg, $primary, $secondary);
   }
   &.header-tile {
     color: #ffffff;

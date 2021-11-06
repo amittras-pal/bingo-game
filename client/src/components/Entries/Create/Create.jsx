@@ -64,50 +64,50 @@ function Create() {
 
   return (
     <div className="container-fluid px-2 scrollable">
-      <div className="container d-flex flex-column justify-content-center align-items-center glass-dark my-5 p-3">
-        <h2 className="text-light">Create a New Game</h2>
+      <div className="container d-flex flex-column justify-content-center bg-light align-items-center my-5 p-4 rounded shadow border border-primary">
+        <h2 className="text-primary">Create a New Game</h2>
         {gamePatterns && (
           <FormikProvider value={newGameForm}>
             <form className="w-100" onSubmit={newGameForm.handleSubmit}>
               <div className="row">
                 <div className="col-md-6 col-sm-12 my-3">
-                  <label htmlFor="" className="form-label text-light">
+                  <label htmlFor="" className="form-label text-primary">
                     Game Title{" "}
-                    <span className="fst-italic small text-warning">
+                    <span className="fst-italic small text-danger">
                       (Required):
                     </span>
                   </label>
                   <Field
                     type="text"
                     autoFocus
-                    className="form-control form-control-sm"
+                    className="form-control form-control-sm text-primary fw-bold"
                     name="gameTitle"
                     autoComplete="off"
                     placeholder="Enter a game title. . ."
                   />
                 </div>
                 <div className="col-md-6 col-sm-12 my-3">
-                  <label htmlFor="" className="form-label text-light">
+                  <label htmlFor="" className="form-label text-primary">
                     Conductor Name{" "}
-                    <span className="fst-italic small text-warning">
+                    <span className="fst-italic small text-danger">
                       (Required):
                     </span>
                   </label>
                   <Field
                     type="text"
-                    className="form-control form-control-sm"
+                    className="form-control form-control-sm text-primary fw-bold"
                     name="conductorName"
                     autoComplete="off"
                     placeholder="Enter game conductor name. . ."
                   />
                 </div>
               </div>
-              <p className="text-light fw-bold">
+              <p className="text-primary fw-bold">
                 Select Win Board(s) <br />
                 <span className="fw-normal small">
                   Click on the label to view board
                 </span>
-                <span className="fw-normal fst-italic small text-warning">
+                <span className="fw-normal fst-italic small text-danger">
                   {" "}
                   (At least one required!):
                 </span>
@@ -116,7 +116,7 @@ function Create() {
                 {gamePatterns?.map((pattern) => (
                   <div className="col-md-3 col-sm-6" key={pattern.value}>
                     <div className="form-check">
-                      <label className="form-check-label text-light cursor-pointer">
+                      <label className="form-check-label text-primary cursor-pointer">
                         <Field
                           type="checkbox"
                           className="form-check-input"
@@ -137,7 +137,7 @@ function Create() {
                         }
                         position="bottom"
                         trigger="click">
-                        <span className="ms-2 text-light cursor-pointer">
+                        <span className="ms-2 text-primary cursor-pointer">
                           <FontAwesomeIcon icon={faInfoCircle} />{" "}
                         </span>
                       </Tooltip>
@@ -148,7 +148,7 @@ function Create() {
               <div className="d-flex justify-content-end my-2">
                 <button
                   type="submit"
-                  className="btn btn-sm btn-warning fw-bold shadow"
+                  className="btn btn-sm btn-primary fw-bold shadow"
                   disabled={!newGameForm.isValid}>
                   CREATE GAME
                 </button>

@@ -27,42 +27,45 @@ function GameDetails({ gameData }) {
     retrieveBoardOptions();
   }, [gameData]);
   return (
-    <div className="glass-dark p-3 mb-3">
-      <h2 className="text-light">Game Details: </h2>
+    <div className="p-3 mb-3 shadow rounded border border-primary bg-light">
+      <h2 className="text-primary">Game Details: </h2>
       <p className="fw-bold">
-        <span className="text-light">Game Title: </span>
-        <span className="text-warning">{gameData?.name}</span>
+        <span className="text-muted">Game Title: </span>
+        <span className="text-primary">{gameData?.name}</span>
       </p>
       <p className="fw-bold">
-        <span className="text-light">Created By: </span>
-        <span className="text-warning">{gameData?.conductorName}</span>
+        <span className="text-muted">Created By: </span>
+        <span className="text-primary">{gameData?.conductorName}</span>
       </p>
       {gameImages && (
         <>
-          <p className="fw-bold text-light">Win Pattern(s):</p>
-          {gameImages.map((image) => (
-            <p className="text-warning m-0" key={image.value}>
-              {image.value}{" "}
-              <Tooltip
-                tag="span"
-                html={
-                  <img
-                    src={image.url}
-                    alt={image.value}
-                    className="img-fluid mb-2"
-                  />
-                }
-                arrow
-                theme="light"
-                position="top-start"
-                trigger="click">
-                {" "}
-                <span className="ms-2 text-light cursor-pointer ">
-                  <FontAwesomeIcon icon={faInfoCircle} />
-                </span>{" "}
-              </Tooltip>
-            </p>
-          ))}
+          <p className="fw-bold text-muted mb-2">Win Pattern(s):</p>
+          <div className="row">
+            {gameImages.map((image) => (
+              <div className="col-md-4 col-sm-12" key={image.value}>
+                <p className="text-primary m-0">
+                  {image.value}{" "}
+                  <Tooltip
+                    tag="span"
+                    html={
+                      <img
+                        src={image.url}
+                        alt={image.value}
+                        className="img-fluid mb-2"
+                      />
+                    }
+                    arrow
+                    theme="light"
+                    position="auto"
+                    trigger="click">
+                    <span className="ms-1 text-primary cursor-pointer ">
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </span>
+                  </Tooltip>
+                </p>
+              </div>
+            ))}
+          </div>
         </>
       )}
     </div>

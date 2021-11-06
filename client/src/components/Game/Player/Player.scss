@@ -1,13 +1,9 @@
+@import "../../../resources/styles/variables";
 .game-rules-btn {
   width: 40px;
   height: 40px;
   border-radius: 20px;
   z-index: 1000;
-  color: #29323c;
-  background: #9796f0;
-  background: -webkit-linear-gradient(312deg, #fbc7d4, #9796f0);
-  background: linear-gradient(312deg, #fbc7d4, #9796f0);
-
   border: none;
   display: flex;
   justify-content: center;
