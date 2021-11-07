@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const usePlayerSocket = () => {
   const socketRef = useRef();
   const history = useHistory();
-  const [claimStatus, setClaimStatus] = useState(null);
+  const [claimStatus, setClaimStatus] = useState(false);
 
   useEffect(() => {
     socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
@@ -22,6 +22,16 @@ const usePlayerSocket = () => {
       toast.success(`Game ${title} has started.`);
     });
 
+    socketRef.current.on("gameFinished", ({ gameTitle, gameUpdate }) => {
+      toast.success(`${gameTitle} has been finished. Redirecting to HOME!`, {
+        autoClose: 3500,
+      });
+      localStorage.clear();
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
+    });
+
     // when next number is generated.
     socketRef.current.on("nextNum", (num) => {
       toast.info(
@@ -35,14 +45,19 @@ const usePlayerSocket = () => {
     socketRef.current.on(
       "playerClaimedBingo",
       ({ playerName: claimer, description }) => {
-        if (claimer === playerName) return;
-        else {
-          setClaimStatus((state) => ({
-            ...state,
-            showClaimed: true,
-            description,
-          }));
+        console.log("running");
+        if (claimer === playerName) {
+          toast.info(
+            "You have claimed Bingo! Please wait while the conductor is reviewing your board."
+          );
+          localStorage.setItem("claimedState", JSON.stringify({ byMe: true }));
+        } else {
+          localStorage.setItem(
+            "claimedState",
+            JSON.stringify({ byMe: false, playerName })
+          );
         }
+        setClaimStatus(true);
       }
     );
 
@@ -79,7 +94,7 @@ const usePlayerSocket = () => {
     socketRef.current.emit("claimBingo", { playerName, gameTitle, board });
   }
 
-  return { claimBingo, quittingGame, claimStatus };
+  return { claimBingo, quittingGame, claimStatus, setClaimStatus };
 };
 
 export default usePlayerSocket;

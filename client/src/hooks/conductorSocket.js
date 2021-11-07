@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const useConductorSocket = () => {
   // Ref to handle the socket instance.
   const socketRef = useRef();
+  const history = useHistory();
   // Store and update the game data here.
   const [gameData, setGameData] = useState(null);
   const [claimedBoard, setClaimedBoard] = useState(null);
@@ -24,6 +26,16 @@ const useConductorSocket = () => {
     socketRef.current.on("gameStartedData", (gameData) => {
       setGameData(gameData);
       toast.info(`Game ${gameData.name} has started.`);
+    });
+
+    socketRef.current.on("gameFinished", ({ gameTitle, gameUpdate }) => {
+      toast.success(`${gameTitle} has been finished. Redirecting to HOME!`, {
+        autoClose: 3500,
+      });
+      localStorage.clear();
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
     });
 
     socketRef.current.on("updatedGameState", ({ usedNumbers, next }) => {
@@ -56,18 +68,22 @@ const useConductorSocket = () => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, []);
+  }, [history]);
 
   // start the game.
   const startGame = ({ gameId, gameTitle }) => {
     socketRef.current.emit("startGame", { gameId, gameTitle });
   };
 
+  const endGame = ({ gameId, gameTitle }) => {
+    socketRef.current.emit("endGame", { gameId, gameTitle });
+  };
+
   const generateNext = ({ gameId, gameTitle }) => {
     socketRef.current.emit("generateNext", { gameId, gameTitle });
   };
 
-  return { gameData, claimedBoard, startGame, generateNext };
+  return { gameData, claimedBoard, startGame, endGame, generateNext };
 };
 
 export default useConductorSocket;
