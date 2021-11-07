@@ -17,3 +17,5 @@ const gameSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("game", gameSchema);
+
+// expires: "48h", default: Date.now // Add to created At
