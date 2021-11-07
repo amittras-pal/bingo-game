@@ -16,7 +16,6 @@ async function notifyPlayerConnected(gameTitle, playerName, socket, io) {
 }
 
 async function notifyBingoClaimed(gameTitle, playerName, board, socket, io) {
-  console.log(board);
   try {
     // const game = await Game.findOne({ name: gameTitle });
     socket.emit("bingoClaimed", {

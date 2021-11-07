@@ -14,7 +14,6 @@ async function findGameById(gameId, gameTitle, socket) {
 }
 
 async function generateNumber(gameId, gameTitle, socket, io) {
-  console.log(`Generating Number for game ${gameTitle}`);
   try {
     const game = await Game.findById(gameId);
     const { next, remaining } = getNextNumber(game.availableNumbers);
@@ -34,7 +33,6 @@ async function generateNumber(gameId, gameTitle, socket, io) {
 }
 
 async function startGame(gameId, gameTitle, socket, io) {
-  console.log(`Starting Game: ${gameTitle}`);
   try {
     const gameUpdate = await Game.findByIdAndUpdate(
       gameId,

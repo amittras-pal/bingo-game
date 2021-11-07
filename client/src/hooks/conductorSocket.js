@@ -33,7 +33,6 @@ const useConductorSocket = () => {
     socketRef.current.on(
       "playerClaimedBingo",
       ({ playerName, board, description }) => {
-        console.log(board);
         toast.info(description);
         setClaimedBoard({ board, playerName });
       }

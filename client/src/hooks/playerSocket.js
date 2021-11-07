@@ -76,7 +76,6 @@ const usePlayerSocket = () => {
 
   function claimBingo({ playerName, gameTitle }) {
     const board = JSON.parse(localStorage.getItem("board"));
-    console.log(`Player ${playerName} claiming Bingo for ${gameTitle}`);
     socketRef.current.emit("claimBingo", { playerName, gameTitle, board });
   }
 
