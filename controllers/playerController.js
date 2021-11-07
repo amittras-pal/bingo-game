@@ -17,11 +17,11 @@ async function notifyPlayerConnected(gameTitle, playerName, socket, io) {
 
 async function notifyBingoClaimed(gameTitle, playerName, board, socket, io) {
   try {
-    // const game = await Game.findOne({ name: gameTitle });
     socket.emit("bingoClaimed", {
       description:
         "Your claim has been submitted successfully!\nplease wait while the conductor reviews!",
     });
+    // TODO: description block needs to be removed. LET FE Handle it.
     io.to(gameTitle).emit("playerClaimedBingo", {
       playerName,
       board,

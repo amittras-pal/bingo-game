@@ -46,8 +46,22 @@ async function startGame(gameId, gameTitle, socket, io) {
   }
 }
 
+async function endGame(gameId, gameTitle, socket, io) {
+  try {
+    const gameUpdate = await Game.findByIdAndUpdate(
+      gameId,
+      { $set: { finished: Date.now() } },
+      { new: true, useFindAndModify: false }
+    );
+    io.to(gameTitle).emit("gameFinished", { gameTitle, gameUpdate });
+  } catch (error) {
+    socket.emit("failedToEnd", null);
+  }
+}
+
 module.exports = {
   findGameById,
   startGame,
   generateNumber,
+  endGame,
 };

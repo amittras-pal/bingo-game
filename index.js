@@ -12,6 +12,7 @@ const {
   findGameById,
   startGame,
   generateNumber,
+  endGame,
 } = require("./controllers/conductorController");
 const {
   notifyPlayerConnected,
@@ -53,6 +54,10 @@ io.on("connection", (socket) => {
     setTimeout(() => {
       generateNumber(gameId, gameTitle, socket, io);
     }, 2000);
+  });
+
+  socket.on("endGame", ({ gameId, gameTitle }) => {
+    endGame(gameId, gameTitle, socket, io);
   });
 
   socket.on("generateNext", ({ gameId, gameTitle }) => {
