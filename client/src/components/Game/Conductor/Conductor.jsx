@@ -7,7 +7,7 @@ import GameStats from "./GameStats/GameStats";
 
 function Conductor() {
   const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
-  const { gameData, claimedBoard, startGame, generateNext } =
+  const { gameData, claimedBoard, startGame, endGame, generateNext } =
     useConductorSocket();
 
   return (
@@ -30,11 +30,18 @@ function Conductor() {
               </div>
               <div className="conductor-actions mt-4">
                 {gameData?.started ? (
-                  <button
-                    className="btn btn-outline-primary fw-bold shadow"
-                    onClick={() => generateNext({ gameId, gameTitle })}>
-                    NEXT NUMBER
-                  </button>
+                  <>
+                    <button
+                      className="btn btn-outline-primary fw-bold shadow me-1"
+                      onClick={() => generateNext({ gameId, gameTitle })}>
+                      NEXT NUMBER
+                    </button>
+                    <button
+                      className="btn btn-outline-danger fw-bold shadow ms-1"
+                      onClick={() => endGame({ gameId, gameTitle })}>
+                      END GAME.
+                    </button>
+                  </>
                 ) : (
                   <button
                     className="btn btn-primary fw-bold shadow"

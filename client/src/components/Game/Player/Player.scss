@@ -13,3 +13,17 @@
     color: #ffffff;
   }
 }
+.bingo-claimed-blocker-modal {
+  .btn-close {
+    display: none;
+  }
+}
+.block-claimer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000, $alpha: 0.2);
+  z-index: 1000;
+}
