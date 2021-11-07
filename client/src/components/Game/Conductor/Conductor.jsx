@@ -36,9 +36,19 @@ function Conductor() {
                 ) : (
                   <h6 className="text-primary">
                     Start the game to generate the first number <br />
-                    <span className="fst-italic text-danger fw-normal small">
-                      (Wait for at least 2 players to join.)
-                    </span>
+                    {gameData?.players?.length < 2 ? (
+                      <span className="fst-italic text-danger fw-normal small">
+                        (Wait for at least 2 players to join.)
+                      </span>
+                    ) : (
+                      <>
+                        {!gameData?.started && (
+                          <span className="fst-italic text-info fw-bold small">
+                            Ready to Start!
+                          </span>
+                        )}
+                      </>
+                    )}
                   </h6>
                 )}
                 <div className="container text-center current text-primary fw-bold">

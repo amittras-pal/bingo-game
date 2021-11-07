@@ -1,18 +1,11 @@
 import React from "react";
 import { DateTime } from "luxon";
+import { Tooltip } from "react-tippy";
 
 function GameStats({ gameData }) {
   return (
     <div className="p-3 mb-3 border border-primary rounded shadow bg-light">
       <h2 className="text-primary">Game Stats</h2>
-      <p className="fw-bold">
-        <span className="text-muted">Game Created: </span>
-        <span className="text-primary">
-          {DateTime.fromISO(gameData?.created).toLocaleString(
-            DateTime.DATETIME_MED
-          )}
-        </span>
-      </p>
       <p className="fw-bold">
         <span className="text-muted">Started: </span>
         <span className="text-primary">{`${
@@ -25,7 +18,26 @@ function GameStats({ gameData }) {
       </p>
       <p className="fw-bold">
         <span className="text-muted">Players Connected: </span>
-        <span className="text-primary">{gameData?.players?.length}</span>
+
+        <Tooltip
+          tag="span"
+          html={
+            <>
+              {gameData?.players.map((player, index) => (
+                <p className="m-0" key={index}>
+                  {player}
+                </p>
+              ))}
+            </>
+          }
+          arrow
+          theme="light"
+          position="auto"
+          trigger="click">
+          <span className="text-primary cursor-pointer">
+            {gameData?.players?.length}
+          </span>
+        </Tooltip>
       </p>
       <p className="fw-bold mb-2">
         <span className="text-muted">Used Numbers: </span>
@@ -42,7 +54,7 @@ function GameStats({ gameData }) {
             </span>
           ))
         ) : (
-          <span className="fw-bold text-primary">Game not staarted yet.</span>
+          <span className="fw-bold text-primary">Game not started yet.</span>
         )}
       </p>
     </div>

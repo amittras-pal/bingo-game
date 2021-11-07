@@ -5,29 +5,28 @@ import { toast } from "react-toastify";
 import { Tooltip } from "react-tippy";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { DateTime } from "luxon";
 
 function GameDetails({ gameData }) {
   const [gameImages, setGameImages] = useState(null);
   useEffect(() => {
     async function retrieveBoardOptions() {
-      if (!gameImages) {
-        try {
-          const { data } = await axiosInstance.get(API_ENDPOINTS.boardOptions);
-          const patterns = Object.entries(data).map(([key, value]) => ({
-            value: key,
-            url: value,
-          }));
-          const gameBoard = patterns.filter((pattern) =>
-            gameData?.boardSelection.includes(pattern.value)
-          );
-          setGameImages(gameBoard);
-        } catch (error) {
-          toast.error("Something Went wrong while retrieving board options.");
-        }
+      try {
+        const { data } = await axiosInstance.get(API_ENDPOINTS.boardOptions);
+        const patterns = Object.entries(data).map(([key, value]) => ({
+          value: key,
+          url: value,
+        }));
+        const gameBoard = patterns.filter((pattern) =>
+          gameData?.boardSelection.includes(pattern.value)
+        );
+        setGameImages(gameBoard);
+      } catch (error) {
+        toast.error("Something Went wrong while retrieving board options.");
       }
     }
     retrieveBoardOptions();
-  }, [gameData, gameImages]);
+  }, [gameData]);
   return (
     <div className="p-3 mb-3 shadow rounded border border-primary bg-light">
       <h2 className="text-primary">Game Details: </h2>
@@ -38,6 +37,14 @@ function GameDetails({ gameData }) {
       <p className="fw-bold">
         <span className="text-muted">Created By: </span>
         <span className="text-primary">{gameData?.conductorName}</span>
+      </p>
+      <p className="fw-bold">
+        <span className="text-muted">Created: </span>
+        <span className="text-primary">
+          {DateTime.fromISO(gameData?.created).toLocaleString(
+            DateTime.DATETIME_MED
+          )}
+        </span>
       </p>
       {gameImages && (
         <>
