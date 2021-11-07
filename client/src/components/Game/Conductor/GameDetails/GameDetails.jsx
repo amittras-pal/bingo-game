@@ -10,22 +10,24 @@ function GameDetails({ gameData }) {
   const [gameImages, setGameImages] = useState(null);
   useEffect(() => {
     async function retrieveBoardOptions() {
-      try {
-        const { data } = await axiosInstance.get(API_ENDPOINTS.boardOptions);
-        const patterns = Object.entries(data).map(([key, value]) => ({
-          value: key,
-          url: value,
-        }));
-        const gameBoard = patterns.filter((pattern) =>
-          gameData?.boardSelection.includes(pattern.value)
-        );
-        setGameImages(gameBoard);
-      } catch (error) {
-        toast.error("Something Went wrong while retrieving board options.");
+      if (!gameImages) {
+        try {
+          const { data } = await axiosInstance.get(API_ENDPOINTS.boardOptions);
+          const patterns = Object.entries(data).map(([key, value]) => ({
+            value: key,
+            url: value,
+          }));
+          const gameBoard = patterns.filter((pattern) =>
+            gameData?.boardSelection.includes(pattern.value)
+          );
+          setGameImages(gameBoard);
+        } catch (error) {
+          toast.error("Something Went wrong while retrieving board options.");
+        }
       }
     }
     retrieveBoardOptions();
-  }, [gameData]);
+  }, [gameData, gameImages]);
   return (
     <div className="p-3 mb-3 shadow rounded border border-primary bg-light">
       <h2 className="text-primary">Game Details: </h2>
