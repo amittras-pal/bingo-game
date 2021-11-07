@@ -143,9 +143,13 @@ function Player() {
           }
           primaryBtnColor="danger"
           secondaryBtnColor="primary"
-          headerContent={<h2>Quit Game?</h2>}
+          headerContent={<h2 className="text-danger">Quit Game?</h2>}
           bodyContent={
-            <p className="m-0">Are you sure you want to quit this game?</p>
+            <p className="m-0">
+              Are you sure you want to quit this game? <br />
+              <span className="fw-bold">NOTE: </span> You will be able to join
+              back into the game if the game has not yet started.
+            </p>
           }
           footerActions={[continuePlaying, quitGame]}
         />
