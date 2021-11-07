@@ -16,6 +16,7 @@ const {
 const {
   notifyPlayerConnected,
   notifyBingoClaimed,
+  removePlayerFromGame,
 } = require("./controllers/playerController");
 
 // Env Variables Config
@@ -39,15 +40,11 @@ const io = socketio(server, { cors: { origin: "*" } });
 io.on("connection", (socket) => {
   // If socket identifies as conductor.
   socket.on("idConductor", ({ gameId, gameTitle }) => {
-    console.log(
-      `Conductor Connected for game Id ${gameId} | Join Group: ${gameTitle}`
-    );
     findGameById(gameId, gameTitle, socket);
   });
 
   // If socket identifies as player.
   socket.on("idPlayer", ({ gameTitle, playerName }) => {
-    console.log("player connected");
     notifyPlayerConnected(gameTitle, playerName, socket, io);
   });
 
@@ -63,8 +60,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("claimBingo", ({ playerName, gameTitle, board }) => {
-    console.log(`${playerName} has claimed Bingo for ${gameTitle}`);
     notifyBingoClaimed(gameTitle, playerName, board, socket, io);
+  });
+
+  socket.on("quittingGame", ({ playerName, gameTitle }) => {
+    removePlayerFromGame(gameTitle, playerName, socket, io);
   });
 
   // Disconnection.

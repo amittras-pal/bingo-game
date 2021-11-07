@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import BingoModal from "../../Shared/BingoModal/BingoModal";
 import GameBoard from "./GameBoard/GameBoard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,12 +11,10 @@ import usePlayerSocket from "../../../hooks/playerSocket";
 import "./Player.scss";
 
 function Player() {
-  const history = useHistory();
-
   const { playerName, gameTitle, boardSelection, boards } = JSON.parse(
     localStorage.getItem("playerInfo")
   );
-  const { claimBingo, claimStatus } = usePlayerSocket();
+  const { claimBingo, quittingGame, claimStatus } = usePlayerSocket();
 
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);
   const [showPatterns, setShowPatterns] = useState(false);
@@ -37,9 +34,7 @@ function Player() {
 
   const confirmLeaveModalHandler = () => setShowConfirmLeave(!showConfirmLeave);
   const quitGame = () => {
-    localStorage.clear();
-    history.push("/");
-    confirmLeaveModalHandler();
+    quittingGame({ playerName, gameTitle });
   };
   const continuePlaying = () => {
     confirmLeaveModalHandler();

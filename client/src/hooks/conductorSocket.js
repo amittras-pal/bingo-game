@@ -39,6 +39,17 @@ const useConductorSocket = () => {
       }
     );
 
+    socketRef.current.on("playerLeft", ({ playerName, players }) => {
+      toast.info(
+        <p className="mb-0">
+          <span className="fw-bold">{playerName}</span>{" "}
+          <span>has left the game.</span>
+        </p>,
+        { theme: "dark" }
+      );
+      setGameData((prev) => ({ ...prev, players }));
+    });
+
     const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
     socketRef.current.emit("idConductor", { gameId, gameTitle });
 

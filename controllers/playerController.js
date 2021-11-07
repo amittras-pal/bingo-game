@@ -35,7 +35,31 @@ async function notifyBingoClaimed(gameTitle, playerName, board, socket, io) {
   }
 }
 
+async function removePlayerFromGame(gameTitle, playerName, socket, io) {
+  try {
+    const game = await Game.findOne({ name: gameTitle });
+    const playerList = game.players;
+    const playerIndex = playerList.indexOf(playerName);
+    playerList.splice(playerIndex, 1);
+    const update = await Game.findByIdAndUpdate(
+      game._id,
+      {
+        $set: { players: playerList },
+      },
+      { new: true, useFindAndModify: false }
+    );
+    socket.emit("removeSuccess", null);
+    io.to(gameTitle).emit("playerLeft", {
+      playerName,
+      players: update.players,
+    });
+  } catch (error) {
+    socket.emit("removeFailed", null);
+  }
+}
+
 module.exports = {
   notifyPlayerConnected,
   notifyBingoClaimed,
+  removePlayerFromGame,
 };
