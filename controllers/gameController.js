@@ -9,6 +9,8 @@ router.get("/patterns", (req, res) => {
 
 router.post("/new", async (req, res) => {
   const { gameTitle, conductorName, boardSelection } = req.body;
+  const gameBoards = [];
+  gameBoards.push(boardSelection);
   try {
     const existing = await Game.findOne({ name: gameTitle });
     if (existing)
@@ -21,7 +23,7 @@ router.post("/new", async (req, res) => {
       const game = await new Game({
         name: gameTitle,
         conductorName,
-        boardSelection,
+        boardSelection: gameBoards,
       }).save();
       return res.json({
         description: "New Game Created!",

@@ -47,16 +47,14 @@ function Create() {
     initialValues: {
       gameTitle: "",
       conductorName: "",
-      boardSelection: [],
+      boardSelection: "",
     },
     validationSchema: Yup.object({
       gameTitle: Yup.string().required("You must provide a game title!"),
       conductorName: Yup.string().required(
         "Enter your name as the game conductor."
       ),
-      boardSelection: Yup.array()
-        .min(1, "At least one pattern needs to be selected.")
-        .required("Required."),
+      boardSelection: Yup.string().required("You must select a win pattern"),
     }),
     validateOnMount: true,
     onSubmit: createNewGame,
@@ -109,7 +107,7 @@ function Create() {
                 </span>
                 <span className="fw-normal fst-italic small text-danger">
                   {" "}
-                  (At least one required!):
+                  (Required!):
                 </span>
               </p>
               <div className="row mb-4" role="group">
@@ -118,7 +116,7 @@ function Create() {
                     <div className="form-check">
                       <label className="form-check-label text-primary cursor-pointer">
                         <Field
-                          type="checkbox"
+                          type="radio"
                           className="form-check-input"
                           name="boardSelection"
                           value={pattern.value}

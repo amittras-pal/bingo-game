@@ -89,7 +89,7 @@ function Player() {
             <button
               className="btn btn-outline-primary fw-bold"
               onClick={patternsModalHandler}>
-              PATTERNS
+              PATTERN
             </button>
             <button
               className="btn btn-link text-danger fw-bold text-decoration-none"
@@ -116,7 +116,9 @@ function Player() {
               ))}
             </div>
           }
-          headerContent={<h2 className="text-primary">Win Patterns</h2>}
+          headerContent={
+            <h2 className="text-primary">Try to make this pattern!</h2>
+          }
           footerActions={[patternsModalHandler, patternsModalHandler]}
         />
         {/* Confirm Quit Game */}
