@@ -35,7 +35,10 @@ function Conductor() {
                   </h6>
                 ) : (
                   <h6 className="text-primary">
-                    Start the game to generate the first number
+                    Start the game to generate the first number <br />
+                    <span className="fst-italic text-danger fw-normal small">
+                      (Can't start unless at least one player joins)
+                    </span>
                   </h6>
                 )}
                 <div className="container text-center current text-primary fw-bold">
@@ -58,7 +61,8 @@ function Conductor() {
                   ) : (
                     <button
                       className="btn btn-primary fw-bold shadow"
-                      onClick={() => startGame({ gameId, gameTitle })}>
+                      onClick={() => startGame({ gameId, gameTitle })}
+                      disabled={gameData.players.length === 0}>
                       START GAME
                     </button>
                   )}
