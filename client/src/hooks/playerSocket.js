@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import { toast } from "react-toastify";
+import { baseURL } from "../constants/constants";
 
 const usePlayerSocket = () => {
   const socketRef = useRef();
@@ -9,7 +10,7 @@ const usePlayerSocket = () => {
   const [claimStatus, setClaimStatus] = useState(false);
 
   useEffect(() => {
-    socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
+    socketRef.current = socketIOClient(baseURL);
 
     // identify as a player.
     const { playerName, gameTitle } = JSON.parse(

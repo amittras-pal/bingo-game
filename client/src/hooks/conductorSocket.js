@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import { baseURL } from "../constants/constants";
 
 const useConductorSocket = () => {
   // Ref to handle the socket instance.
@@ -12,7 +13,7 @@ const useConductorSocket = () => {
   const [claimedBoard, setClaimedBoard] = useState(null);
   // Pull data on render: Need to find better entry points.
   useEffect(() => {
-    socketRef.current = socketIOClient(process.env.REACT_APP_API_URL);
+    socketRef.current = socketIOClient(baseURL);
 
     socketRef.current.on("playerJoined", ({ playerName, players }) => {
       // toast.info(`${playerName} has joined the game.`, { autoClose: 1000 });
@@ -83,7 +84,26 @@ const useConductorSocket = () => {
     socketRef.current.emit("generateNext", { gameId, gameTitle });
   };
 
-  return { gameData, claimedBoard, startGame, endGame, generateNext };
+  const declareWinner = ({ gameId, gameTitle, playerName }) => {
+    socketRef.current.emit("declareWinner", { gameId, gameTitle, playerName });
+  };
+  const declareFalseClaim = ({ gameId, gameTitle, playerName }) => {
+    socketRef.current.emit("declareFalseClaim", {
+      gameId,
+      gameTitle,
+      playerName,
+    });
+  };
+
+  return {
+    gameData,
+    claimedBoard,
+    startGame,
+    endGame,
+    generateNext,
+    declareWinner,
+    declareFalseClaim,
+  };
 };
 
 export default useConductorSocket;

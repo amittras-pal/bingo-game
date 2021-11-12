@@ -4,6 +4,7 @@ const cors = require("cors");
 const http = require("http");
 const mongoose = require("mongoose");
 const socketio = require("socket.io");
+const path = require("path");
 require("dotenv").config();
 
 // Required Files
@@ -30,6 +31,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/game", gameController);
+
+// Set up production app config.
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 // Create HTTP Server for the app, will be used for socket.io
 const server = http.createServer(app);
