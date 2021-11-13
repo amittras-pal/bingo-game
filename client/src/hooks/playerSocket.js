@@ -47,7 +47,9 @@ const usePlayerSocket = () => {
         </p>,
         {
           theme: "dark",
-          autoClose: 5000,
+          autoClose: false,
+          closeButton: false,
+          closeOnClick: false,
         }
       );
     });

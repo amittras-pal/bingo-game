@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import BingoModal from "../../Shared/BingoModal/BingoModal";
 import GameBoard from "./GameBoard/GameBoard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTimes,
-  faForward,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faForward } from "@fortawesome/free-solid-svg-icons";
 import usePlayerSocket from "../../../hooks/playerSocket";
 import "./Player.scss";
+import { Link } from "react-router-dom";
 
 function Player() {
   const { playerName, gameTitle, boardSelection, boards } = JSON.parse(
@@ -81,16 +78,14 @@ function Player() {
           </h4>
         </div>
         <GameBoard />
-        <div className="container d-flex justify-content-between py-3 px-0 mt-3 player-actions">
-          <div className="info">
-            <a
-              className="game-rules-btn bg-dark text-light shadow"
-              target="_blank"
-              rel="noreferrer"
-              href="https://www.atlanticbingosupply.com/about/howto-play-bingo">
-              <FontAwesomeIcon icon={faInfoCircle} />
-            </a>
-          </div>
+        <div className="container d-flex justify-content-between py-3 px-0 mt-2 player-actions">
+          <Link
+            to="/game-rules"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-link text-primary fw-bold text-decoration-none">
+            HOW TO PLAY
+          </Link>
           <div className="actions">
             <button
               className="btn btn-primary fw-bold me-3"

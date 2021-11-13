@@ -5,6 +5,7 @@ import Join from "../Entries/Join/Join";
 import Player from "../Game/Player/Player";
 import Conductor from "../Game/Conductor/Conductor";
 import Home from "../Home/Home";
+import Rules from "../Rules/Rules";
 
 function AppRouter() {
   return (
@@ -13,6 +14,7 @@ function AppRouter() {
       <Route path="/conductor" component={Conductor} />
       <Route path="/new-game" component={Create} />
       <Route path="/join-game" component={Join} />
+      <Route path="/game-rules" component={Rules} />
       <Route path="/" component={Home} />
     </Switch>
   );

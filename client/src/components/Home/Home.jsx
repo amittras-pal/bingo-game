@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="container-fluid px-2">
-      <div className="container d-flex flex-column justify-content-center bg-light align-items-center my-5 border border-primary p-4 rounded shadow">
+      <div className="container d-flex flex-column justify-content-center bg-light align-items-center mt-5 border border-primary p-4 rounded shadow">
         <h1 className="text-primary text-center pb-4 border-primary border-bottom w-100">
           Online Bingo Game
         </h1>
@@ -20,6 +20,15 @@ function Home() {
             JOIN A GAME
           </Link>
         </div>
+      </div>
+      <div className="container d-flex px-0 mt-3">
+        <Link
+          to="/game-rules"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-link text-primary text-decoration-none fw-bold">
+          About & Instructions
+        </Link>
       </div>
     </div>
   );
