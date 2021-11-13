@@ -14,7 +14,7 @@ function Player() {
   const { playerName, gameTitle, boardSelection, boards } = JSON.parse(
     localStorage.getItem("playerInfo")
   );
-  const { claimBingo, quittingGame, claimStatus, gameStarted, setClaimStatus } =
+  const { claimBingo, quittingGame, claimStatus, gameStarted } =
     usePlayerSocket();
 
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);

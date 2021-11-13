@@ -53,7 +53,20 @@ async function declareWinnerAndEndGame(
   socket,
   io
 ) {
-  //TODO
+  try {
+    const finishedGame = await Game.findByIdAndUpdate(
+      gameId,
+      { $set: { finished: Date.now(), winner: playerName } },
+      { new: true, useFindAndModify: false }
+    );
+    io.to(gameTitle).emit("playerDeclaredWinner", { gameTitle, playerName });
+    socket.emit("winnerDeclared", {
+      time: finishedGame.finished,
+      winner: finishedGame.winner,
+    });
+  } catch (error) {
+    socket.emit("winDeclareFailed", null);
+  }
 }
 
 async function endGame(gameId, gameTitle, socket, io) {

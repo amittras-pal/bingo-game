@@ -83,7 +83,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("declareWinner", ({ gameId, gameTitle, playerName }) => {
-    // TODO:
     declareWinnerAndEndGame(gameId, gameTitle, playerName, socket, io);
   });
 

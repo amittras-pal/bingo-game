@@ -73,11 +73,33 @@ const usePlayerSocket = () => {
           { autoClose: 3500 }
         );
       } else {
-        toast.info("You have been declared Bogey! Your claim is invalid.", {
+        toast.error("You have been declared Bogey! Your claim is invalid.", {
           autoClose: 3500,
         });
       }
     });
+
+    socketRef.current.on(
+      "playerDeclaredWinner",
+      ({ gameTitle, playerName: winner }) => {
+        if (winner === playerName) {
+          toast.success(
+            "You have won the game. This session will finish now.",
+            { autoClose: 3000 }
+          );
+        } else {
+          toast.info(
+            `${winner} has won the game. This session will finish now! BETTER LUCK NEXT TIME.`,
+            { autoClose: 3000 }
+          );
+        }
+        setClaimStatus(false);
+        setTimeout(() => {
+          history.push("/");
+          localStorage.clear();
+        }, 1000);
+      }
+    );
 
     socketRef.current.on("removeSuccess", () => {
       localStorage.clear();
