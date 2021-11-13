@@ -39,7 +39,7 @@ const usePlayerSocket = () => {
     // when next number is generated.
     socketRef.current.on("nextNum", (num) => {
       toast.info(
-        <p>
+        <p className="m-0">
           The Next Number is: <span className="h3">{num}</span>
         </p>
       );
