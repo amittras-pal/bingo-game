@@ -23,7 +23,7 @@ async function generateNumber(gameId, gameTitle, socket, io) {
       { new: true, useFindAndModify: false }
     );
     if (remaining.length === 0) {
-      socket.emit("lastNum", null);
+      io.to(gameTitle).emit("lastNum", null);
     }
     io.to(gameTitle).emit("nextNum", next);
     socket.emit("updatedGameState", {

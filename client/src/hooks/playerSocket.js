@@ -36,6 +36,16 @@ const usePlayerSocket = () => {
       }, 1000);
     });
 
+    socketRef.current.on("lastNum", () => {
+      toast.info(
+        "All Numbers are used, there were NO WINNERS! The game will end now!",
+        {
+          theme: "dark",
+          autoClose: 5000,
+        }
+      );
+    });
+
     // when next number is generated.
     socketRef.current.on("nextNum", (num) => {
       toast.info(
