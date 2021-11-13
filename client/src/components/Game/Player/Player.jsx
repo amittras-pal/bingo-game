@@ -76,6 +76,16 @@ function Player() {
           }}></div>
       )}
       <div className="container-fluid px-3">
+        <div className="container d-flex justify-content-between pt-3 px-0">
+          <h4>
+            <span className="text-muted">Player: </span>{" "}
+            <span className="text-primary fst-italic">{playerName}</span>{" "}
+          </h4>
+          <h4>
+            <span className="text-muted">Game: </span>{" "}
+            <span className="text-primary fst-italic">{gameTitle}</span>{" "}
+          </h4>
+        </div>
         <GameBoard />
         <div className="container d-flex justify-content-between py-3 px-0 mt-3 player-actions">
           <div className="info">
