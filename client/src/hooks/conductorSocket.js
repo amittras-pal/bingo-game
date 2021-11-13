@@ -54,6 +54,23 @@ const useConductorSocket = () => {
       }, 1000);
     });
 
+    socketRef.current.on("lastNum", () => {
+      toast.error(
+        <p className="m-0">
+          <span className="fw-bold">This is the last Number!</span>
+        </p>,
+        { autoClose: 5000 }
+      );
+      toast.info(
+        <p className="m-0">
+          <span className="fw-bold">
+            Wait for anyone to claim Bingo, or end the game!
+          </span>
+        </p>,
+        { autoClose: 5000, theme: "dark" }
+      );
+    });
+
     socketRef.current.on("updatedGameState", ({ usedNumbers, next }) => {
       setGameData((prev) => ({ ...prev, usedNumbers, next }));
     });

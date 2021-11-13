@@ -36,12 +36,29 @@ const usePlayerSocket = () => {
       }, 1000);
     });
 
+    socketRef.current.on("lastNum", () => {
+      toast.info(
+        <p className="m-0">
+          <span className="fw-bold">This is the last Number!</span>
+          <br />
+          <span>
+            The Conductor will end the game if no other player claims bingo!
+          </span>
+        </p>,
+        {
+          theme: "dark",
+          autoClose: 5000,
+        }
+      );
+    });
+
     // when next number is generated.
     socketRef.current.on("nextNum", (num) => {
       toast.info(
-        <p>
+        <p className="m-0">
           The Next Number is: <span className="h3">{num}</span>
-        </p>
+        </p>,
+        { theme: "dark" }
       );
     });
 

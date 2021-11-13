@@ -10,6 +10,7 @@ import { faTimes, faForward } from "@fortawesome/free-solid-svg-icons";
 
 function Conductor() {
   const [endGameModal, setEndGameModal] = useState(false);
+  const [nextNumReady, setNextNumReady] = useState(true);
   const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
   const {
     gameData,
@@ -27,6 +28,14 @@ function Conductor() {
     setTimeout(() => {
       endGame({ gameId, gameTitle });
     }, 500);
+  };
+
+  const handleNextNum = () => {
+    setNextNumReady(false);
+    generateNext({ gameId, gameTitle });
+    setTimeout(() => {
+      setNextNumReady(true);
+    }, 1500);
   };
 
   return (
@@ -73,8 +82,8 @@ function Conductor() {
                     <>
                       <button
                         className="btn btn-outline-primary fw-bold shadow me-1"
-                        onClick={() => generateNext({ gameId, gameTitle })}
-                        disabled={claimedBoard}>
+                        onClick={handleNextNum}
+                        disabled={claimedBoard || !nextNumReady}>
                         NEXT NUMBER
                       </button>
                       <button

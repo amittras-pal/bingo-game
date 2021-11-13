@@ -22,9 +22,10 @@ async function generateNumber(gameId, gameTitle, socket, io) {
       { $push: { usedNumbers: next }, availableNumbers: remaining },
       { new: true, useFindAndModify: false }
     );
-    // let everyone in the game know the next number
+    if (remaining.length === 0) {
+      io.to(gameTitle).emit("lastNum", null);
+    }
     io.to(gameTitle).emit("nextNum", next);
-    // let conductor know the next number and also the used numbers
     socket.emit("updatedGameState", {
       usedNumbers: updatedGame.usedNumbers,
       next,

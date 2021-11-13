@@ -74,7 +74,6 @@ function Join() {
                 </label>
                 <Field
                   type="text"
-                  autoFocus
                   className="form-control form-control-sm text-primary fw-bold"
                   name="playerName"
                   autoComplete="off"
