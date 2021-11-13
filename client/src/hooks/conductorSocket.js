@@ -59,7 +59,7 @@ const useConductorSocket = () => {
         <p className="m-0">
           <span className="fw-bold">This is the last Number!</span>
         </p>,
-        { autoClose: 5000 }
+        { autoClose: false, closeButton: false, closeOnClick: false }
       );
       toast.info(
         <p className="m-0">
@@ -67,7 +67,12 @@ const useConductorSocket = () => {
             Wait for anyone to claim Bingo, or end the game!
           </span>
         </p>,
-        { autoClose: 5000, theme: "dark" }
+        {
+          autoClose: false,
+          closeButton: false,
+          closeOnClick: false,
+          theme: "dark",
+        }
       );
     });
 
