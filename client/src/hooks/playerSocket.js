@@ -38,7 +38,13 @@ const usePlayerSocket = () => {
 
     socketRef.current.on("lastNum", () => {
       toast.info(
-        "All Numbers are used, there were NO WINNERS! The game will end now!",
+        <p className="m-0">
+          <span className="fw-bold">This is the last Number!</span>
+          <br />
+          <span>
+            The Conductor will end the game if no other player claims bingo!
+          </span>
+        </p>,
         {
           theme: "dark",
           autoClose: 5000,
@@ -51,7 +57,8 @@ const usePlayerSocket = () => {
       toast.info(
         <p className="m-0">
           The Next Number is: <span className="h3">{num}</span>
-        </p>
+        </p>,
+        { theme: "dark" }
       );
     });
 

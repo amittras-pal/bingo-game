@@ -55,17 +55,20 @@ const useConductorSocket = () => {
     });
 
     socketRef.current.on("lastNum", () => {
-      toast.error("This is the last number.", { autoClose: 5000 });
-      toast.info("There were no winners, the game will end in 2 seconds!", {
-        theme: "dark",
-        autoClose: 5000,
-      });
-      setTimeout(() => {
-        const { gameId, gameTitle } = JSON.parse(
-          localStorage.getItem("gameData")
-        );
-        endGame({ gameId, gameTitle });
-      }, 2000);
+      toast.error(
+        <p className="m-0">
+          <span className="fw-bold">This is the last Number!</span>
+        </p>,
+        { autoClose: 5000 }
+      );
+      toast.info(
+        <p className="m-0">
+          <span className="fw-bold">
+            Wait for anyone to claim Bingo, or end the game!
+          </span>
+        </p>,
+        { autoClose: 5000, theme: "dark" }
+      );
     });
 
     socketRef.current.on("updatedGameState", ({ usedNumbers, next }) => {
