@@ -87,11 +87,11 @@ const useConductorSocket = () => {
   const declareWinner = ({ gameId, gameTitle, playerName }) => {
     socketRef.current.emit("declareWinner", { gameId, gameTitle, playerName });
   };
-  const declareFalseClaim = ({ gameId, gameTitle, playerName }) => {
-    socketRef.current.emit("declareFalseClaim", {
-      gameId,
-      gameTitle,
-      playerName,
+  const declareBogey = ({ playerName, gameTitle }) => {
+    socketRef.current.emit("declareBogey", { playerName, gameTitle });
+    setClaimedBoard(null);
+    toast.info(`${playerName} is a declared bogey! The game will continue!`, {
+      theme: "dark",
     });
   };
 
@@ -102,7 +102,7 @@ const useConductorSocket = () => {
     endGame,
     generateNext,
     declareWinner,
-    declareFalseClaim,
+    declareBogey,
   };
 };
 

@@ -49,7 +49,6 @@ const usePlayerSocket = () => {
     socketRef.current.on(
       "playerClaimedBingo",
       ({ playerName: claimer, description }) => {
-        console.log("running");
         if (claimer === playerName) {
           toast.info(
             "You have claimed Bingo! Please wait while the conductor is reviewing your board."
@@ -64,6 +63,21 @@ const usePlayerSocket = () => {
         setClaimStatus(true);
       }
     );
+
+    socketRef.current.on("playerDeclaredBogey", (data) => {
+      localStorage.removeItem("claimedState");
+      setClaimStatus(false);
+      if (data.playerName !== playerName) {
+        toast.info(
+          `${playerName} has been declared Bogey, the game will continue.`,
+          { autoClose: 3500 }
+        );
+      } else {
+        toast.info("You have been declared Bogey! Your claim is invalid.", {
+          autoClose: 3500,
+        });
+      }
+    });
 
     socketRef.current.on("removeSuccess", () => {
       localStorage.clear();
