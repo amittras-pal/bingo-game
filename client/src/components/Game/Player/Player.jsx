@@ -25,7 +25,6 @@ function Player() {
 
   useEffect(() => {
     if (claimStatus) {
-      console.log("effect running");
       const claimed = JSON.parse(localStorage.getItem("claimedState"));
       if (claimed) {
         setClaimState(claimed);
@@ -100,7 +99,8 @@ function Player() {
           <div className="actions">
             <button
               className="btn btn-primary fw-bold me-3"
-              onClick={() => claimBingo({ playerName, gameTitle })}>
+              onClick={() => claimBingo({ playerName, gameTitle })}
+              disabled={!started}>
               BINGO!
             </button>
             <button
@@ -115,6 +115,20 @@ function Player() {
             </button>
           </div>
         </div>
+        <BingoModal
+          show={claimState && !claimState.byMe}
+          className="bingo-claimed-blocker-modal"
+          bodyContent={
+            <p>
+              <span className="fw-bold text-primary">
+                {claimState?.claimer}
+              </span>{" "}
+              has claimed Bingo! Please wait while it is being reviewed by the
+              conductor!
+            </p>
+          }
+          headerContent={<h2>Bingo has been claimed!</h2>}
+        />
         {/* View the Game Patterns. */}
         <BingoModal
           show={showPatterns}
@@ -171,19 +185,6 @@ function Player() {
           footerActions={[continuePlaying, quitGame]}
         />
         {/* Someone else has a Bingo Claimed */}
-        <BingoModal
-          show={claimState && !claimState.byMe}
-          className="bingo-claimed-blocker-modal"
-          bodyContent={
-            <p>
-              <span className="fw-bold text-primary">
-                {claimState?.playerName}
-              </span>{" "}
-              has claimed Bingo! PLease wait while it is reviewed.
-            </p>
-          }
-          headerContent={<h2>Bingo has been claimed!</h2>}
-        />
       </div>
     </>
   );
