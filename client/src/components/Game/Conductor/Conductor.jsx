@@ -108,8 +108,8 @@ function Conductor() {
                 to="/game-rules"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-link text-primary fw-bold text-decoration-none">
-                ABOUT & INSTRUCTIONS
+                className="btn btn-link text-light text-decoration-none">
+                About & Instructions
               </Link>
             </div>
             <div className="col-md-8 col-sm-12">

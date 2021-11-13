@@ -6,12 +6,22 @@
 
 html {
   background-color: #eeeeee;
+  background-image: url("../images/home-tile-bg-01.png");
+  background-position: center;
+  background-size: cover;
   width: 100vw;
   height: 100vh;
 }
 body {
   background-color: transparent;
   font-family: "Poppins", sans-serif;
+}
+
+.home-tile {
+  background-color: transparent;
+  img {
+    margin-top: -10px;
+  }
 }
 
 .rounded {

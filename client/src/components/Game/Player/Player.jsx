@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import BingoModal from "../../Shared/BingoModal/BingoModal";
 import GameBoard from "./GameBoard/GameBoard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faForward } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faForward,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import usePlayerSocket from "../../../hooks/playerSocket";
 import "./Player.scss";
 import { Link } from "react-router-dom";
@@ -67,44 +71,45 @@ function Player() {
           }}></div>
       )}
       <div className="container-fluid px-3">
-        <div className="container d-flex justify-content-between pt-3 px-0">
-          <h4>
-            <span className="text-muted">Player: </span>{" "}
-            <span className="text-primary fst-italic">{playerName}</span>{" "}
-          </h4>
-          <h4>
-            <span className="text-muted">Game: </span>{" "}
-            <span className="text-primary fst-italic">{gameTitle}</span>{" "}
-          </h4>
+        <div className="container d-flex justify-content-between pt-3 mt-3 px-0">
+          <h6>
+            <span className="text-light">Player: </span>{" "}
+            <span className="text-warning fst-italic">{playerName}</span>{" "}
+          </h6>
+          <h6 className="text-end">
+            <span className="text-light">Game: </span>{" "}
+            <span className="text-warning fst-italic">{gameTitle}</span>{" "}
+          </h6>
         </div>
         <GameBoard />
         <div className="container d-flex justify-content-between py-3 px-0 mt-2 player-actions">
-          <Link
-            to="/game-rules"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-link text-primary fw-bold text-decoration-none">
-            HOW TO PLAY
-          </Link>
           <div className="actions">
             <button
-              className="btn btn-primary fw-bold me-3"
-              onClick={() => claimBingo({ playerName, gameTitle })}
-              disabled={!started}>
-              BINGO!
-            </button>
-            <button
-              className="btn btn-outline-primary fw-bold"
+              className="btn btn-sm btn-outline-light fw-bold"
               onClick={patternsModalHandler}>
               PATTERN
             </button>
+            <Link
+              to="/game-rules"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-sm btn-link text-light text-decoration-none ms-2 pe-0">
+              <FontAwesomeIcon icon={faInfoCircle} />
+            </Link>
             <button
-              className="btn btn-link text-danger fw-bold text-decoration-none"
+              className="btn btn-sm btn-link text-danger fw-bold text-decoration-none ms-2"
               onClick={confirmLeaveModalHandler}>
               <FontAwesomeIcon icon={faTimes} /> QUIT
             </button>
           </div>
+          <button
+            className="btn btn-sm btn-warning fw-bold me-2"
+            onClick={() => claimBingo({ playerName, gameTitle })}
+            disabled={!started}>
+            BINGO!
+          </button>
         </div>
+
         <BingoModal
           show={claimState && !claimState.byMe}
           className="bingo-claimed-blocker-modal"
