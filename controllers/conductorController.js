@@ -46,6 +46,29 @@ async function startGame(gameId, gameTitle, socket, io) {
   }
 }
 
+async function declareWinnerAndEndGame(
+  gameId,
+  gameTitle,
+  playerName,
+  socket,
+  io
+) {
+  try {
+    const finishedGame = await Game.findByIdAndUpdate(
+      gameId,
+      { $set: { finished: Date.now(), winner: playerName } },
+      { new: true, useFindAndModify: false }
+    );
+    io.to(gameTitle).emit("playerDeclaredWinner", { gameTitle, playerName });
+    socket.emit("winnerDeclared", {
+      time: finishedGame.finished,
+      winner: finishedGame.winner,
+    });
+  } catch (error) {
+    socket.emit("winDeclareFailed", null);
+  }
+}
+
 async function endGame(gameId, gameTitle, socket, io) {
   try {
     const gameUpdate = await Game.findByIdAndUpdate(
@@ -63,5 +86,6 @@ module.exports = {
   findGameById,
   startGame,
   generateNumber,
+  declareWinnerAndEndGame,
   endGame,
 };

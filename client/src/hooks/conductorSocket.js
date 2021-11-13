@@ -3,6 +3,7 @@ import socketIOClient from "socket.io-client";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { baseURL } from "../constants/constants";
+import { DateTime } from "luxon";
 
 const useConductorSocket = () => {
   // Ref to handle the socket instance.
@@ -16,7 +17,6 @@ const useConductorSocket = () => {
     socketRef.current = socketIOClient(baseURL);
 
     socketRef.current.on("playerJoined", ({ playerName, players }) => {
-      // toast.info(`${playerName} has joined the game.`, { autoClose: 1000 });
       setGameData((gameData) => ({ ...gameData, players }));
     });
 
@@ -27,6 +27,21 @@ const useConductorSocket = () => {
     socketRef.current.on("gameStartedData", (gameData) => {
       setGameData(gameData);
       toast.info(`Game ${gameData.name} has started.`);
+    });
+
+    socketRef.current.on("winnerDeclared", ({ time, winner }) => {
+      toast.success(
+        <p className="m-0">
+          <span className="text-success">{winner} </span>declared winner! <br />
+          Game finished at{" "}
+          <span className="text-success">
+            {DateTime.fromISO(time).toLocaleString(DateTime.TIME_SIMPLE)}{" "}
+          </span>
+        </p>,
+        { autoClose: 3000 }
+      );
+      localStorage.clear();
+      setTimeout(() => history.push("/"), 1000);
     });
 
     socketRef.current.on("gameFinished", ({ gameTitle, gameUpdate }) => {
@@ -87,11 +102,11 @@ const useConductorSocket = () => {
   const declareWinner = ({ gameId, gameTitle, playerName }) => {
     socketRef.current.emit("declareWinner", { gameId, gameTitle, playerName });
   };
-  const declareFalseClaim = ({ gameId, gameTitle, playerName }) => {
-    socketRef.current.emit("declareFalseClaim", {
-      gameId,
-      gameTitle,
-      playerName,
+  const declareBogey = ({ playerName, gameTitle }) => {
+    socketRef.current.emit("declareBogey", { playerName, gameTitle });
+    setClaimedBoard(null);
+    toast.info(`${playerName} is a declared bogey! The game will continue!`, {
+      theme: "dark",
     });
   };
 
@@ -102,7 +117,7 @@ const useConductorSocket = () => {
     endGame,
     generateNext,
     declareWinner,
-    declareFalseClaim,
+    declareBogey,
   };
 };
 

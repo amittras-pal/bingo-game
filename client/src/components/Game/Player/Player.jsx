@@ -14,7 +14,7 @@ function Player() {
   const { playerName, gameTitle, boardSelection, boards } = JSON.parse(
     localStorage.getItem("playerInfo")
   );
-  const { claimBingo, quittingGame, claimStatus, gameStarted, setClaimStatus } =
+  const { claimBingo, quittingGame, claimStatus, gameStarted } =
     usePlayerSocket();
 
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);
@@ -29,6 +29,8 @@ function Player() {
       if (claimed) {
         setClaimState(claimed);
       }
+    } else {
+      setClaimState(null);
     }
   }, [claimStatus, setClaimState]);
 
@@ -37,13 +39,6 @@ function Player() {
       if (localStorage["started"]) setStarted(true);
     }
   }, [gameStarted]);
-
-  useEffect(() => {
-    if (localStorage["claimedState"]) {
-      const claimed = JSON.parse(localStorage.getItem("claimedState"));
-      setClaimState(claimed);
-    }
-  }, [setClaimStatus]);
 
   const patternsModalHandler = () => {
     const patterns = Object.entries(boards).map(([key, value]) => ({

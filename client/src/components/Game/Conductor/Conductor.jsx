@@ -11,8 +11,15 @@ import { faTimes, faForward } from "@fortawesome/free-solid-svg-icons";
 function Conductor() {
   const [endGameModal, setEndGameModal] = useState(false);
   const { gameId, gameTitle } = JSON.parse(localStorage.getItem("gameData"));
-  const { gameData, claimedBoard, startGame, endGame, generateNext } =
-    useConductorSocket();
+  const {
+    gameData,
+    claimedBoard,
+    startGame,
+    endGame,
+    generateNext,
+    declareBogey,
+    declareWinner,
+  } = useConductorSocket();
 
   const endGameModalHandler = () => setEndGameModal(!endGameModal);
   const confirmEndGame = () => {
@@ -156,10 +163,25 @@ function Conductor() {
                     </div>
                   </div>
                   <div className="d-flex justify-content-end mt-3 mb-2">
-                    <button className="btn btn-primary fw-bold me-3">
+                    <button
+                      className="btn btn-primary fw-bold me-3"
+                      onClick={() =>
+                        declareWinner({
+                          gameId,
+                          gameTitle,
+                          playerName: claimedBoard.playerName,
+                        })
+                      }>
                       WINNER
                     </button>
-                    <button className="btn btn-outline-primary fw-bold">
+                    <button
+                      className="btn btn-outline-primary fw-bold"
+                      onClick={() =>
+                        declareBogey({
+                          playerName: claimedBoard.playerName,
+                          gameTitle,
+                        })
+                      }>
                       BOGEY
                     </button>
                   </div>
