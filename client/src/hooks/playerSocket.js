@@ -46,7 +46,6 @@ const usePlayerSocket = () => {
           </span>
         </p>,
         {
-          theme: "dark",
           autoClose: false,
           closeButton: false,
           closeOnClick: false,
@@ -60,7 +59,7 @@ const usePlayerSocket = () => {
         <p className="m-0">
           The Next Number is: <span className="h3">{num}</span>
         </p>,
-        { theme: "dark" }
+        { theme: "light" }
       );
     });
 
