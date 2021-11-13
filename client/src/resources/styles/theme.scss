@@ -2,6 +2,7 @@
 @import "~react-toastify/dist/ReactToastify.css";
 @import "~react-tippy/dist/tippy.css";
 @import "~bootstrap/scss/bootstrap.scss";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap");
 
 html {
   background-color: #eeeeee;
@@ -10,6 +11,7 @@ html {
 }
 body {
   background-color: transparent;
+  font-family: "Poppins", sans-serif;
 }
 
 .rounded {
