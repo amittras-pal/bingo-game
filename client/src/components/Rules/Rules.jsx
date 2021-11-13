@@ -14,7 +14,7 @@ import patternScreenshot from "../../resources/images/player-pattern.png";
 
 export default function Rules() {
   return (
-    <div className="game-rules">
+    <div className="game-rules bg-light">
       <div className="container-fluid py-3 bg-warning sticky-top shadow border-bottom border-primary">
         <div className="container d-flex justify-content-between">
           <h2 className="text-primary">
@@ -232,8 +232,8 @@ export default function Rules() {
           below:
         </p>
       </div>
-      <div className="d-flex container-fluid flex-column align-items-center my-3 text-center">
-        <div className="row">
+      <div className="d-flex container-fluid px-0 flex-column align-items-center my-3 text-center">
+        <div className="row m-0 p-0">
           <div className="col-md-6 col-lg-6 px-0 mb-3">
             <img
               src={claimedScreenshot}
