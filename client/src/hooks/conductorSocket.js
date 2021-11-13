@@ -54,6 +54,20 @@ const useConductorSocket = () => {
       }, 1000);
     });
 
+    socketRef.current.on("lastNum", () => {
+      toast.error("This is the last number.", { autoClose: 5000 });
+      toast.info("There were no winners, the game will end in 2 seconds!", {
+        theme: "dark",
+        autoClose: 5000,
+      });
+      setTimeout(() => {
+        const { gameId, gameTitle } = JSON.parse(
+          localStorage.getItem("gameData")
+        );
+        endGame({ gameId, gameTitle });
+      }, 2000);
+    });
+
     socketRef.current.on("updatedGameState", ({ usedNumbers, next }) => {
       setGameData((prev) => ({ ...prev, usedNumbers, next }));
     });
