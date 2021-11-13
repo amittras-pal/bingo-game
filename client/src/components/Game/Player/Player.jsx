@@ -14,13 +14,14 @@ function Player() {
   const { playerName, gameTitle, boardSelection, boards } = JSON.parse(
     localStorage.getItem("playerInfo")
   );
-  const { claimBingo, quittingGame, claimStatus, setClaimStatus } =
+  const { claimBingo, quittingGame, claimStatus, gameStarted, setClaimStatus } =
     usePlayerSocket();
 
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);
   const [showPatterns, setShowPatterns] = useState(false);
   const [gameImages, setGameImages] = useState(null);
   const [claimState, setClaimState] = useState(null);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     if (claimStatus) {
@@ -31,6 +32,12 @@ function Player() {
       }
     }
   }, [claimStatus, setClaimState]);
+
+  useEffect(() => {
+    if (gameStarted) {
+      if (localStorage["started"]) setStarted(true);
+    }
+  }, [gameStarted]);
 
   useEffect(() => {
     if (localStorage["claimedState"]) {
