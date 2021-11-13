@@ -13,6 +13,7 @@ const {
   findGameById,
   startGame,
   generateNumber,
+  declareWinnerAndEndGame,
   endGame,
 } = require("./controllers/conductorController");
 const {
@@ -81,6 +82,14 @@ io.on("connection", (socket) => {
     removePlayerFromGame(gameTitle, playerName, socket, io);
   });
 
+  socket.on("declareWinner", ({ gameId, gameTitle, playerName }) => {
+    // TODO:
+    declareWinnerAndEndGame(gameId, gameTitle, playerName, socket, io);
+  });
+
+  socket.on("declareBogey", ({ playerName, gameTitle }) => {
+    io.to(gameTitle).emit("playerDeclaredBogey", { playerName });
+  });
   // Disconnection.
   socket.on("disconnect", () => {
     console.log("Disconnected.");

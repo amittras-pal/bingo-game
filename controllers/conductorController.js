@@ -46,6 +46,16 @@ async function startGame(gameId, gameTitle, socket, io) {
   }
 }
 
+async function declareWinnerAndEndGame(
+  gameId,
+  gameTitle,
+  playerName,
+  socket,
+  io
+) {
+  //TODO
+}
+
 async function endGame(gameId, gameTitle, socket, io) {
   try {
     const gameUpdate = await Game.findByIdAndUpdate(
@@ -63,5 +73,6 @@ module.exports = {
   findGameById,
   startGame,
   generateNumber,
+  declareWinnerAndEndGame,
   endGame,
 };
