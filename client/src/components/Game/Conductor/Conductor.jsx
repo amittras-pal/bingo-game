@@ -54,17 +54,26 @@ function Conductor() {
                 <div className="container text-center current text-primary fw-bold">
                   {gameData?.next ? <>{gameData.next}</> : <>XX</>}
                 </div>
-                <div className="conductor-actions mt-4">
+                {claimedBoard && (
+                  <p className="small text-danger">
+                    Please review the claimed board before proceeding with the
+                    game!
+                  </p>
+                )}
+                <div
+                  className={`conductor-actions ${claimedBoard ? "" : "mt-4"}`}>
                   {gameData?.started ? (
                     <>
                       <button
                         className="btn btn-outline-primary fw-bold shadow me-1"
-                        onClick={() => generateNext({ gameId, gameTitle })}>
+                        onClick={() => generateNext({ gameId, gameTitle })}
+                        disabled={claimedBoard}>
                         NEXT NUMBER
                       </button>
                       <button
                         className="btn btn-outline-danger fw-bold shadow ms-1"
-                        onClick={endGameModalHandler}>
+                        onClick={endGameModalHandler}
+                        disabled={claimedBoard}>
                         END GAME.
                       </button>
                     </>
