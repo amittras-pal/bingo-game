@@ -8,6 +8,7 @@ const usePlayerSocket = () => {
   const socketRef = useRef();
   const history = useHistory();
   const [claimStatus, setClaimStatus] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     socketRef.current = socketIOClient(baseURL);
@@ -21,6 +22,8 @@ const usePlayerSocket = () => {
     // when game started
     socketRef.current.on("gameStarted", (title) => {
       toast.success(`Game ${title} has started.`);
+      localStorage.setItem("started", "Yes");
+      setTimeout(() => setGameStarted(true), 2000);
     });
 
     socketRef.current.on("gameFinished", ({ gameTitle, gameUpdate }) => {
@@ -55,7 +58,7 @@ const usePlayerSocket = () => {
         } else {
           localStorage.setItem(
             "claimedState",
-            JSON.stringify({ byMe: false, playerName })
+            JSON.stringify({ byMe: false, claimer })
           );
         }
         setClaimStatus(true);
@@ -95,7 +98,7 @@ const usePlayerSocket = () => {
     socketRef.current.emit("claimBingo", { playerName, gameTitle, board });
   }
 
-  return { claimBingo, quittingGame, claimStatus, setClaimStatus };
+  return { claimBingo, quittingGame, claimStatus, gameStarted, setClaimStatus };
 };
 
 export default usePlayerSocket;
