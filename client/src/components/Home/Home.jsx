@@ -10,7 +10,7 @@ function Home() {
         <span className="fst-italic small text-warning">Presents</span>
       </h4>
       <div className="home-tile container d-flex flex-column justify-content-center align-items-center rounded shadow">
-        <img src={bingoLogo} alt="" className="mb-3" style={{ width: "60%" }} />
+        <img src={bingoLogo} alt="" className="mb-3 bingo-poster" />
         <div className="row w-100">
           <div className="col-md-6 col-lg-6 mb-3">
             <Link to="/new-game" className="btn shadow fw-bold btn-light w-100">
