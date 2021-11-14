@@ -6,12 +6,13 @@ import Player from "../Game/Player/Player";
 import Conductor from "../Game/Conductor/Conductor";
 import Home from "../Home/Home";
 import Rules from "../Rules/Rules";
+import GuardRoute from "./GuardRoute";
 
 function AppRouter() {
   return (
     <Switch>
-      <Route path="/game" component={Player} />
-      <Route path="/conductor" component={Conductor} />
+      <GuardRoute path="/game" component={Player} />
+      <GuardRoute path="/conductor" component={Conductor} />
       <Route path="/new-game" component={Create} />
       <Route path="/join-game" component={Join} />
       <Route path="/game-rules" component={Rules} />
