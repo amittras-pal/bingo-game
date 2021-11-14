@@ -44,10 +44,10 @@ function GameStats({ gameData }) {
         {gameData?.usedNumbers.length > 0 ? (
           gameData.usedNumbers.map((num, index) => (
             <span
-              className={`badge mx-1 ${
+              className={`badge mx-1 text-light ${
                 index === gameData.usedNumbers.length - 1
-                  ? "bg-primary text-light"
-                  : "bg-secondary text-dark"
+                  ? "bg-primary"
+                  : "bg-secondary"
               } `}
               key={num}>
               {num}

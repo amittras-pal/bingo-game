@@ -15,12 +15,20 @@ html {
 body {
   background-color: transparent;
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
 
 .home-tile {
   background-color: transparent;
-  img {
+  img.bingo-poster {
     margin-top: -10px;
+    width: 150%;
+  }
+  @include media-breakpoint-up(md) {
+    img.bingo-poster {
+      margin-top: -10px;
+      width: 65%;
+    }
   }
 }
 

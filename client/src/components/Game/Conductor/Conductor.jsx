@@ -104,13 +104,6 @@ function Conductor() {
                   )}
                 </div>
               </div>
-              <Link
-                to="/game-rules"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-link text-light text-decoration-none">
-                About & Instructions
-              </Link>
             </div>
             <div className="col-md-8 col-sm-12">
               {claimedBoard && (
@@ -207,6 +200,13 @@ function Conductor() {
               <GameStats gameData={gameData} />
               <GameDetails gameData={gameData} />
             </div>
+            <Link
+              to="/game-rules"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-link text-end text-light text-decoration-none">
+              About & Instructions
+            </Link>
           </div>
         </div>
       </div>

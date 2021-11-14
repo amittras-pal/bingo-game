@@ -39,6 +39,7 @@ function Player() {
     if (gameStarted) {
       if (localStorage["started"]) setStarted(true);
     }
+    if (localStorage["started"]) setStarted(true);
   }, [gameStarted]);
 
   const patternsModalHandler = () => {
