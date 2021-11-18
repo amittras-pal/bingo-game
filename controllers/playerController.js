@@ -21,7 +21,6 @@ async function notifyBingoClaimed(gameTitle, playerName, board, socket, io) {
       description:
         "Your claim has been submitted successfully!\nplease wait while the conductor reviews!",
     });
-    // TODO: description block needs to be removed. LET FE Handle it.
     io.to(gameTitle).emit("playerClaimedBingo", {
       playerName,
       board,
