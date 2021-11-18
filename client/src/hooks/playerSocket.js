@@ -97,27 +97,23 @@ const usePlayerSocket = () => {
       }
     });
 
-    socketRef.current.on(
-      "playerDeclaredWinner",
-      ({ gameTitle, playerName: winner }) => {
-        if (winner === playerName) {
-          toast.success(
-            "You have won the game. This session will finish now.",
-            { autoClose: 3000 }
-          );
-        } else {
-          toast.info(
-            `${winner} has won the game. This session will finish now! BETTER LUCK NEXT TIME.`,
-            { autoClose: 3000 }
-          );
-        }
-        setClaimStatus(false);
-        setTimeout(() => {
-          history.push("/");
-          localStorage.clear();
-        }, 1000);
+    socketRef.current.on("playerDeclaredWinner", ({ playerName: winner }) => {
+      if (winner === playerName) {
+        toast.success("You have won the game. This session will finish now.", {
+          autoClose: 3000,
+        });
+      } else {
+        toast.info(
+          `${winner} has won the game. This session will finish now! BETTER LUCK NEXT TIME.`,
+          { autoClose: 3000 }
+        );
       }
-    );
+      setClaimStatus(false);
+      setTimeout(() => {
+        history.push("/");
+        localStorage.clear();
+      }, 1000);
+    });
 
     socketRef.current.on("removeSuccess", () => {
       localStorage.clear();
