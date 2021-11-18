@@ -1,16 +1,14 @@
 const router = require("express").Router();
-const { createBoard, getNextNumber } = require("../utils/utils");
-const { boardImgLinks } = require("../constants/constants");
+const { createBoard } = require("../utils/utils");
+const { boardImages } = require("../constants/constants");
 const Game = require("../models/game");
 
 router.get("/patterns", (req, res) => {
-  res.json(boardImgLinks);
+  return res.json(boardImages);
 });
 
 router.post("/new", async (req, res) => {
   const { gameTitle, conductorName, boardSelection } = req.body;
-  const gameBoards = [];
-  gameBoards.push(boardSelection);
   try {
     const existing = await Game.findOne({ name: gameTitle });
     if (existing)
@@ -23,7 +21,10 @@ router.post("/new", async (req, res) => {
       const game = await new Game({
         name: gameTitle,
         conductorName,
-        boardSelection: gameBoards,
+        boardSelection,
+        boardUrl: boardImages.filter(
+          (image) => image.imageName === boardSelection
+        )[0].imageUrl,
       }).save();
       return res.json({
         description: "New Game Created!",
@@ -64,7 +65,7 @@ router.post("/join-game", async (req, res) => {
               playerName,
               board: createBoard(),
               boardSelection: existing.boardSelection,
-              boards: boardImgLinks,
+              boardUrl: existing.boardUrl,
             },
           });
         } catch (error) {

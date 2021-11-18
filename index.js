@@ -32,6 +32,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/game", gameController);
+app.use("/static", express.static(path.resolve(__dirname, "static")));
 
 // Set up production app config.
 if (process.env.NODE_ENV === "production") {
