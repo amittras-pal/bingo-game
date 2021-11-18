@@ -7,6 +7,7 @@ import Conductor from "../Game/Conductor/Conductor";
 import Home from "../Home/Home";
 import Rules from "../Rules/Rules";
 import GuardRoute from "./GuardRoute";
+import BoardLoader from "../temp/BoardLoader";
 
 function AppRouter() {
   return (
@@ -16,6 +17,7 @@ function AppRouter() {
       <Route path="/new-game" component={Create} />
       <Route path="/join-game" component={Join} />
       <Route path="/game-rules" component={Rules} />
+      <Route path="/temp" component={BoardLoader} />
       <Route path="/" component={Home} />
     </Switch>
   );

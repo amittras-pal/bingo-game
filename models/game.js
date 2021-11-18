@@ -12,7 +12,8 @@ const gameSchema = new mongoose.Schema({
   created: { type: Date, default: Date.now },
   started: { type: Date },
   finished: { type: Date },
-  boardSelection: { type: [String] },
+  boardSelection: { type: String },
+  boardUrl: { type: String },
   winner: { type: String },
 });
 

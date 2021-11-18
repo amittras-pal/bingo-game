@@ -12,7 +12,7 @@ import "./Player.scss";
 import { Link } from "react-router-dom";
 
 function Player() {
-  const { playerName, gameTitle, boardSelection, boards } = JSON.parse(
+  const { playerName, gameTitle, boardSelection, boardUrl } = JSON.parse(
     localStorage.getItem("playerInfo")
   );
   const { claimBingo, quittingGame, claimStatus, gameStarted } =
@@ -20,7 +20,6 @@ function Player() {
 
   const [showConfirmLeave, setShowConfirmLeave] = useState(false);
   const [showPatterns, setShowPatterns] = useState(false);
-  const [gameImages, setGameImages] = useState(null);
   const [claimState, setClaimState] = useState(null);
   const [started, setStarted] = useState(false);
 
@@ -43,14 +42,14 @@ function Player() {
   }, [gameStarted]);
 
   const patternsModalHandler = () => {
-    const patterns = Object.entries(boards).map(([key, value]) => ({
-      value: key,
-      url: value,
-    }));
-    const gameBoards = patterns.filter((pattern) =>
-      boardSelection.includes(pattern.value)
-    );
-    setGameImages(gameBoards);
+    // const patterns = Object.entries(boards).map(([key, value]) => ({
+    //   value: key,
+    //   url: value,
+    // }));
+    // const gameBoards = patterns.filter((pattern) =>
+    //   boardSelection.includes(pattern.value)
+    // );
+    // setGameImages(gameBoards);
     setShowPatterns(!showPatterns);
   };
 
@@ -133,14 +132,15 @@ function Player() {
           primaryBtnColor="primary"
           bodyContent={
             <div style={{ maxHeight: "70vh", overflowY: "auto" }}>
-              {gameImages?.map((image) => (
-                <img
-                  src={image.url}
-                  alt={image.value}
-                  className="img-fluid"
-                  key={image.value}
-                />
-              ))}
+              <img
+                src={
+                  process.env.REACT_APP_API_URL
+                    ? process.env.REACT_APP_API_URL + boardUrl
+                    : boardUrl
+                }
+                alt={boardSelection}
+                className="img-fluid"
+              />
             </div>
           }
           headerContent={
