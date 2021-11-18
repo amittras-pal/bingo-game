@@ -13,12 +13,12 @@ function Join() {
     try {
       const { data } = await axiosInstance.post(API_ENDPOINTS.joinGame, values);
       toast.success(data.description);
-      const { playerName, gameTitle, boardSelection, boards, board } =
+      const { playerName, gameTitle, boardSelection, boardUrl, board } =
         data.response;
       // Save player info to client: {Player.jsx} will read this.
       localStorage.setItem(
         "playerInfo",
-        JSON.stringify({ playerName, gameTitle, boardSelection, boards })
+        JSON.stringify({ playerName, gameTitle, boardSelection, boardUrl })
       );
       // save board to localstorage: {GameBoard.jsx} will read this.
       localStorage.setItem("board", JSON.stringify(board));

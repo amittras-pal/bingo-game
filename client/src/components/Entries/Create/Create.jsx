@@ -15,22 +15,18 @@ function Create() {
   const [gamePatterns, setGamePatterns] = useState(null);
 
   useEffect(() => {
-    async function retrieveBoardOptions() {
+    (async function () {
       try {
         const { data } = await axiosInstance.get(API_ENDPOINTS.boardOptions);
-        const patterns = Object.entries(data).map(([key, value]) => ({
-          value: key,
-          url: value,
-        }));
-        setGamePatterns(patterns);
+        setGamePatterns(data);
       } catch (error) {
         toast.error("Something Went Wrong while retrieving board options.");
       }
-    }
-    retrieveBoardOptions();
+    })();
   }, []);
 
   const createNewGame = async (values) => {
+    console.log(values);
     try {
       const { data } = await axiosInstance.post(API_ENDPOINTS.newGame, values);
       toast.success(data.description);
@@ -112,24 +108,29 @@ function Create() {
               </p>
               <div className="row mb-4" role="group">
                 {gamePatterns?.map((pattern) => (
-                  <div className="col-md-3 col-sm-6" key={pattern.value}>
+                  <div className="col-md-3 col-sm-6" key={pattern.imageName}>
                     <div className="form-check">
                       <label className="form-check-label text-primary cursor-pointer">
                         <Field
                           type="radio"
                           className="form-check-input"
                           name="boardSelection"
-                          value={pattern.value}
+                          value={pattern.imageName}
                         />
-                        <span>{pattern.value}</span>
+                        <span>{pattern.imageName}</span>
                       </label>
                       <Tooltip
                         arrow
                         theme="light"
                         html={
                           <img
-                            alt={pattern.value}
-                            src={pattern.url}
+                            alt={pattern.imageName}
+                            src={
+                              process.env.REACT_APP_API_URL
+                                ? process.env.REACT_APP_API_URL +
+                                  pattern.imageUrl
+                                : pattern.imageUrl
+                            }
                             className="tooltip-image"
                           />
                         }
