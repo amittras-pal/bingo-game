@@ -91,10 +91,4 @@ router.post("/join-game", async (req, res) => {
   }
 });
 
-// test route
-router.get("/games", async (req, res) => {
-  const games = await Game.find();
-  return res.json({ games });
-});
-
 module.exports = router;

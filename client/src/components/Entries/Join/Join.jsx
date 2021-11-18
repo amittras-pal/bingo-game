@@ -15,12 +15,10 @@ function Join() {
       toast.success(data.description);
       const { playerName, gameTitle, boardSelection, boardUrl, board } =
         data.response;
-      // Save player info to client: {Player.jsx} will read this.
       localStorage.setItem(
         "playerInfo",
         JSON.stringify({ playerName, gameTitle, boardSelection, boardUrl })
       );
-      // save board to localstorage: {GameBoard.jsx} will read this.
       localStorage.setItem("board", JSON.stringify(board));
       history.push("/game");
     } catch (error) {

@@ -11,7 +11,6 @@ function NumberTile({
   onSelect,
   isConductorViewing,
 }) {
-  // const [isSelected, setIsSelected] = useState(typeof value === "string");
   return (
     <>
       {isHeader ? (

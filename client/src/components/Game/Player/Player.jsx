@@ -42,14 +42,6 @@ function Player() {
   }, [gameStarted]);
 
   const patternsModalHandler = () => {
-    // const patterns = Object.entries(boards).map(([key, value]) => ({
-    //   value: key,
-    //   url: value,
-    // }));
-    // const gameBoards = patterns.filter((pattern) =>
-    //   boardSelection.includes(pattern.value)
-    // );
-    // setGameImages(gameBoards);
     setShowPatterns(!showPatterns);
   };
 
@@ -124,7 +116,6 @@ function Player() {
           }
           headerContent={<h2>Bingo has been claimed!</h2>}
         />
-        {/* View the Game Patterns. */}
         <BingoModal
           show={showPatterns}
           rootclose={true}
@@ -148,7 +139,6 @@ function Player() {
           }
           footerActions={[patternsModalHandler, patternsModalHandler]}
         />
-        {/* Confirm Quit Game */}
         <BingoModal
           show={showConfirmLeave}
           rootclose={true}
@@ -180,7 +170,6 @@ function Player() {
           }
           footerActions={[continuePlaying, quitGame]}
         />
-        {/* Someone else has a Bingo Claimed */}
       </div>
     </>
   );

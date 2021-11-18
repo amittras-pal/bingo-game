@@ -18,19 +18,16 @@ function shuffleArray(array) {
 function createBoard() {
   const boardValues = {};
   const boardState = {};
-  // Create Values
   ["B", "I", "N", "G", "O"].forEach((letter, index) => {
     const shuffled = shuffleArray(boardColumns[index]);
     boardValues[letter] =
       letter === "N" ? shuffled.slice(0, 4) : shuffled.slice(0, 5);
   });
-  // Add a free block at the center of the "N" column.
   boardValues.N = [
     ...boardValues.N.slice(0, 2),
     "S",
     ...boardValues.N.slice(2, 4),
   ];
-  // Create State Object for rendering on the screen and client side manipulations.
   Object.entries(boardValues).forEach(([letter, numbers]) => {
     boardState[letter] = numbers.map((val) => ({
       value: val,

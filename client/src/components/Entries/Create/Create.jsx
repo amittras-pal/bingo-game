@@ -26,7 +26,6 @@ function Create() {
   }, []);
 
   const createNewGame = async (values) => {
-    console.log(values);
     try {
       const { data } = await axiosInstance.post(API_ENDPOINTS.newGame, values);
       toast.success(data.description);
