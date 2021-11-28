@@ -91,4 +91,15 @@ router.post("/join-game", async (req, res) => {
   }
 });
 
+router.get("/report/:gameId", async (req, res) => {
+  try {
+    const gameReport = await Game.findById(req.params.gameId);
+    res.json({ description: "Report For Last Game", response: gameReport });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ description: "Something went wrong", response: null });
+  }
+});
+
 module.exports = router;

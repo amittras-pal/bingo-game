@@ -64,6 +64,7 @@ async function declareWinnerAndEndGame(
     socket.emit("winnerDeclared", {
       time: finishedGame.finished,
       winner: finishedGame.winner,
+      gameId,
     });
   } catch (error) {
     socket.emit("winDeclareFailed", null);
