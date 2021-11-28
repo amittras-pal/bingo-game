@@ -29,18 +29,17 @@ const useConductorSocket = () => {
       toast.info(`Game ${gameData.name} has started.`);
     });
 
-    socketRef.current.on("winnerDeclared", ({ time, winner }) => {
+    socketRef.current.on("winnerDeclared", ({ time, winner, gameId }) => {
       toast.success(
         <p className="m-0">
-          <span className="text-success">{winner} </span>declared winner! <br />
+          {winner} declared winner! <br />
           Game finished at{" "}
-          <span className="text-success">
-            {DateTime.fromISO(time).toLocaleString(DateTime.TIME_SIMPLE)}{" "}
-          </span>
+          {DateTime.fromISO(time).toLocaleString(DateTime.TIME_SIMPLE)}{" "}
         </p>,
         { autoClose: 3000 }
       );
       localStorage.clear();
+      localStorage.setItem("showReportFor", gameId);
       setTimeout(() => history.push("/"), 1000);
     });
 
@@ -49,6 +48,7 @@ const useConductorSocket = () => {
         autoClose: 3500,
       });
       localStorage.clear();
+      localStorage.setItem("showReportFor", gameUpdate._id);
       setTimeout(() => {
         history.push("/");
       }, 1000);
