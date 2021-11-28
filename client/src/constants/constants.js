@@ -8,3 +8,5 @@ export const API_ENDPOINTS = {
   boardOptions: "/game/patterns",
   gameReport: "/game/report/",
 };
+
+export const toastDuration = 5000;

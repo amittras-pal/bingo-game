@@ -91,7 +91,7 @@ function Conductor() {
                         className="btn btn-outline-danger fw-bold shadow ms-1"
                         onClick={endGameModalHandler}
                         disabled={claimedBoard}>
-                        END GAME.
+                        END GAME
                       </button>
                     </>
                   ) : (

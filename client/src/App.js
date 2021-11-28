@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
 import AppRouter from "./components/router/Router";
+import { toastDuration } from "./constants/constants";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       </Router>
       <ToastContainer
         position="bottom-center"
-        autoClose={2000}
+        autoClose={toastDuration}
         hideProgressBar={true}
         newestOnTop={false}
         transition={Slide}

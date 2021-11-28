@@ -35,8 +35,7 @@ const useConductorSocket = () => {
           {winner} declared winner! <br />
           Game finished at{" "}
           {DateTime.fromISO(time).toLocaleString(DateTime.TIME_SIMPLE)}{" "}
-        </p>,
-        { autoClose: 3000 }
+        </p>
       );
       localStorage.clear();
       localStorage.setItem("showReportFor", gameId);
@@ -44,9 +43,7 @@ const useConductorSocket = () => {
     });
 
     socketRef.current.on("gameFinished", ({ gameTitle, gameUpdate }) => {
-      toast.success(`${gameTitle} has been finished. Redirecting to HOME!`, {
-        autoClose: 3500,
-      });
+      toast.success(`${gameTitle} has been finished. Redirecting to HOME!`);
       localStorage.clear();
       localStorage.setItem("showReportFor", gameUpdate._id);
       setTimeout(() => {
