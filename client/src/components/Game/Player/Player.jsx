@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import BingoModal from "../../Shared/BingoModal/BingoModal";
-import GameBoard from "./GameBoard/GameBoard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTimes,
   faForward,
   faInfoCircle,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import usePlayerSocket from "../../../hooks/playerSocket";
-import "./Player.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import usePlayerSocket from "../../../hooks/playerSocket";
+import BingoModal from "../../Shared/BingoModal/BingoModal";
+import GameBoard from "./GameBoard/GameBoard";
+import "./Player.scss";
 
 function Player() {
   const { playerName, gameTitle, boardSelection, boardUrl } = JSON.parse(
