@@ -20,15 +20,12 @@ function Home() {
       (async () => {
         try {
           const gameId = localStorage.getItem("showReportFor");
-          console.log(gameId);
           const { data } = await axiosInstance.get(
             API_ENDPOINTS.gameReport + gameId
           );
           setGameReport(data.response);
         } catch (error) {
           toast.error("Failed to get the report for last game!");
-          console.log(error);
-          console.log(error.response);
         }
       })();
     }

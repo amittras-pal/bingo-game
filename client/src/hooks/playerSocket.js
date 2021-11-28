@@ -27,9 +27,7 @@ const usePlayerSocket = () => {
     });
 
     socketRef.current.on("gameFinished", ({ gameTitle, gameUpdate }) => {
-      toast.success(`${gameTitle} has been finished. Redirecting to HOME!`, {
-        autoClose: 3500,
-      });
+      toast.success(`${gameTitle} has been finished. Redirecting to HOME!`);
       localStorage.clear();
       setTimeout(() => {
         history.push("/");
@@ -87,25 +85,19 @@ const usePlayerSocket = () => {
       setClaimStatus(false);
       if (data.playerName !== playerName) {
         toast.info(
-          `${playerName} has been declared Bogey, the game will continue.`,
-          { autoClose: 3500 }
+          `${playerName} has been declared Bogey, the game will continue.`
         );
       } else {
-        toast.error("You have been declared Bogey! Your claim is invalid.", {
-          autoClose: 3500,
-        });
+        toast.error("You have been declared Bogey! Your claim is invalid.");
       }
     });
 
     socketRef.current.on("playerDeclaredWinner", ({ playerName: winner }) => {
       if (winner === playerName) {
-        toast.success("You have won the game. This session will finish now.", {
-          autoClose: 3000,
-        });
+        toast.success("You have won the game. This session will finish now.");
       } else {
         toast.info(
-          `${winner} has won the game. This session will finish now! BETTER LUCK NEXT TIME.`,
-          { autoClose: 3000 }
+          `${winner} has won the game. This session will finish now! BETTER LUCK NEXT TIME.`
         );
       }
       setClaimStatus(false);
